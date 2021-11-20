@@ -20,6 +20,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: MeetupColors.black,
       // backgroundColor: Colors.white,
       body: CustomScrollView(
+        physics: ClampingScrollPhysics(),
         slivers: [
           _header,
           const SliverToBoxAdapter(child: SizedBox(height: 50)),
@@ -99,48 +100,31 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Text(
                           '13/12 ÀS 19H',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300,
-                          ),
+                          style: Theme.of(context).textTheme.subtitle1,
                         ),
                         const SizedBox(height: 8),
                         Text(
                           'VENHA',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 48,
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style: Theme.of(context).textTheme.headline1,
                         ),
                         Text(
                           'DECOLAR SEUS',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 48,
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style: Theme.of(context).textTheme.headline1,
                         ),
                         Text(
                           'CONHECIMENTOS',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 48,
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style: Theme.of(context).textTheme.headline1,
                         ),
                         const SizedBox(height: 8),
                         Text(
                           'Crie network e aprenda em um ambiente colaborativo. Com reuniões mensais nos melhores espaços de inovação em Ribeirão Preto.',
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w400),
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                         const SizedBox(height: 32),
                         MeetupPrimaryButton(
-                            label: 'Inscreva-se', onPressed: () {}),
+                          label: 'Inscreva-se',
+                          onPressed: () {},
+                        ),
                       ],
                     ),
                   ),
@@ -190,27 +174,19 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Nossa comunidade',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 48,
-                            fontWeight: FontWeight.w700,
-                          )),
                       Text(
-                          'O meetup é formado pela comunidade e para a comunidade. Qualquer um é bem vindo para contribuir, seja você iniciante ou experiente, sempre tem uma forma de contribuir.',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300,
-                          )),
+                        'Nossa comunidade',
+                        style: Theme.of(context).textTheme.headline1,
+                      ),
+                      Text(
+                        'O meetup é formado pela comunidade e para a comunidade. Qualquer um é bem vindo para contribuir, seja você iniciante ou experiente, sempre tem uma forma de contribuir.',
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
                       const SizedBox(height: 32),
                       Text(
-                          'O meetup é formado pela comunidade e para a comunidade. Qualquer um é bem vindo para contribuir, seja você iniciante ou experiente, sempre tem uma forma de contribuir.',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300,
-                          )),
+                        'O meetup é formado pela comunidade e para a comunidade. Qualquer um é bem vindo para contribuir, seja você iniciante ou experiente, sempre tem uma forma de contribuir.',
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
                     ],
                   ),
                 ),
@@ -247,20 +223,15 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('Programação do evento',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 48,
-                        fontWeight: FontWeight.w700,
-                      )),
+                  Text(
+                    'Programação do evento',
+                    style: Theme.of(context).textTheme.headline1,
+                  ),
                   const SizedBox(height: 24),
                   Text(
-                      'Confira aqui tudo que vai rolar no dia e não perca nada.',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w300,
-                      )),
+                    'Confira aqui tudo que vai rolar no dia e não perca nada.',
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
                   const SizedBox(height: 40),
                   SizedBox(
                     height: 190,
@@ -306,11 +277,7 @@ class _HomePageState extends State<HomePage> {
           Text(
             description,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-            ),
+            style: Theme.of(context).textTheme.bodyText2,
           ),
         ],
       ),
@@ -325,28 +292,20 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('Nossos palestrantes',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 48,
-                      fontWeight: FontWeight.w700,
-                    )),
+                Text(
+                  'Nossos palestrantes',
+                  style: Theme.of(context).textTheme.headline1,
+                ),
                 const SizedBox(height: 32),
                 Text(
-                    'Confira aqui os palestrantes que vão apresentar o que vão rolar no dia.',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w300,
-                    )),
+                  'Confira aqui os palestrantes que vão apresentar o que vão rolar no dia.',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
                 const SizedBox(height: 16),
                 Text(
-                    'Confira aqui os palestrantes que vão apresentar o que vão rolar no dia.',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w300,
-                    )),
+                  'Confira aqui os palestrantes que vão apresentar o que vão rolar no dia.',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
               ],
             ),
             Stack(
@@ -421,22 +380,11 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           const SizedBox(height: 32),
-          Text(
-            name,
-            style: TextStyle(
-              color: Color(0xff4e4b59),
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          Text(name, style: Theme.of(context).textTheme.headline2),
           const SizedBox(height: 8),
           Text(
             description,
-            style: TextStyle(
-              color: Color(0xff7a7786),
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
+            style: Theme.of(context).textTheme.subtitle2,
           ),
         ],
       ),

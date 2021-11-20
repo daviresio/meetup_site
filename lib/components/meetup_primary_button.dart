@@ -16,8 +16,10 @@ class MeetupPrimaryButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           label,
-          style: TextStyle(
-              color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700),
+          style: Theme.of(context)
+              .textTheme
+              .button!
+              .merge(TextStyle(fontWeight: FontWeight.w700)),
         ));
   }
 }

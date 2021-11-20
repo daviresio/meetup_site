@@ -13,10 +13,6 @@ class MeetupTextButton extends StatelessWidget {
         style: TextButton.styleFrom(
           padding: EdgeInsets.symmetric(horizontal: 36, vertical: 16),
         ),
-        child: Text(
-          label,
-          style: TextStyle(
-              color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
-        ));
+        child: Text(label, style: Theme.of(context).textTheme.button));
   }
 }

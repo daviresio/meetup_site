@@ -62,18 +62,24 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Roboto
+    - family: Nominee
       fonts:
-        - asset: assets/fonts/roboto/Roboto-Thin.ttf
+        - asset: assets/fonts/Nominee-Thin.ttf
           weight: 100
-        - asset: assets/fonts/roboto/Roboto-Light.ttf
+        - asset: assets/fonts/Nominee-Light.ttf
           weight: 300
-        - asset: assets/fonts/roboto/Roboto-Regular.ttf
-          weight: 400
-        - asset: assets/fonts/roboto/Roboto-Medium.ttf
+        - asset: assets/fonts/Nominee-Medium.ttf
           weight: 500
-        - asset: assets/fonts/roboto/Roboto-Bold.ttf
+        - asset: assets/fonts/Nominee-Bold.ttf
           weight: 700
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+          weight: 400
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
     - family:  MeetupIcons
       fonts:
         - asset: assets/fonts/MeetupIcons.ttf
