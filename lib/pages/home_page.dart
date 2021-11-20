@@ -5,6 +5,7 @@ import 'package:meetup_site/components/meetup_primary_button.dart';
 import 'package:meetup_site/components/meetup_text_button.dart';
 import 'package:meetup_site/helpers/meetup_colors.dart';
 import 'package:meetup_site/helpers/meetup_icons.dart';
+import 'package:meetup_site/helpers/meetup_spacing.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -41,29 +42,21 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget get _header => SliverToBoxAdapter(
-        child: Container(
-          margin: const EdgeInsets.all(28),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Image.asset(
-                'assets/images/flutter_logo.png',
-                width: 170,
-              ),
-              Row(
-                children: [
-                  MeetupTextButton(label: 'Nossa comunidade', onPressed: () {}),
-                  const SizedBox(width: 16),
-                  MeetupTextButton(label: 'O Evento', onPressed: () {}),
-                  const SizedBox(width: 16),
-                  MeetupTextButton(label: 'Palestrantes', onPressed: () {}),
-                  const SizedBox(width: 16),
-                  MeetupPrimaryButton(
-                      label: 'Faça sua inscrição', onPressed: () {}),
-                ],
-              ),
-            ],
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Image.asset('assets/images/logo.png', width: 170),
+            Row(
+              children: [
+                MeetupTextButton(label: 'Nossa comunidade', onPressed: () {}),
+                MeetupTextButton(label: 'O Evento', onPressed: () {}),
+                MeetupTextButton(label: 'Palestrantes', onPressed: () {}),
+                const SizedBox(width: MeetupSpacing.medium),
+                MeetupPrimaryButton(
+                    label: 'Faça sua inscrição', onPressed: () {}),
+              ],
+            ),
+          ],
         ),
       );
 
@@ -89,51 +82,48 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.all(28),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '13/12 ÀS 19H',
-                          style: Theme.of(context).textTheme.subtitle1,
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'VENHA',
-                          style: Theme.of(context).textTheme.headline1,
-                        ),
-                        Text(
-                          'DECOLAR SEUS',
-                          style: Theme.of(context).textTheme.headline1,
-                        ),
-                        Text(
-                          'CONHECIMENTOS',
-                          style: Theme.of(context).textTheme.headline1,
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Crie network e aprenda em um ambiente colaborativo. Com reuniões mensais nos melhores espaços de inovação em Ribeirão Preto.',
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        const SizedBox(height: 32),
-                        MeetupPrimaryButton(
-                          label: 'Inscreva-se',
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '13/12 ÀS 19H',
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
+                      const SizedBox(height: MeetupSpacing.small),
+                      Text(
+                        'VENHA',
+                        style: Theme.of(context).textTheme.headline1,
+                      ),
+                      Text(
+                        'DECOLAR SEUS',
+                        style: Theme.of(context).textTheme.headline1,
+                      ),
+                      Text(
+                        'CONHECIMENTOS',
+                        style: Theme.of(context).textTheme.headline1,
+                      ),
+                      const SizedBox(height: MeetupSpacing.small),
+                      Text(
+                        'Crie network e aprenda em um ambiente colaborativo. Com reuniões mensais nos melhores espaços de inovação em Ribeirão Preto.',
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                      const SizedBox(height: MeetupSpacing.large),
+                      MeetupPrimaryButton(
+                        label: 'Inscreva-se',
+                        onPressed: () {},
+                      ),
+                    ],
                   ),
-                  Image.asset(
-                    'assets/images/banner.png',
-                    width: 652,
-                  ),
-                ],
-              ),
+                ),
+                Image.asset(
+                  'assets/images/banner.png',
+                  width: 652,
+                ),
+              ],
             ),
           ],
         ),
@@ -164,10 +154,7 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image.asset(
-                  'assets/images/our_community.png',
-                  width: 576,
-                ),
+                Image.asset('assets/images/our_community.png', width: 576),
                 Expanded(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -178,11 +165,12 @@ class _HomePageState extends State<HomePage> {
                         'Nossa comunidade',
                         style: Theme.of(context).textTheme.headline1,
                       ),
+                      const SizedBox(height: MeetupSpacing.large),
                       Text(
                         'O meetup é formado pela comunidade e para a comunidade. Qualquer um é bem vindo para contribuir, seja você iniciante ou experiente, sempre tem uma forma de contribuir.',
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
-                      const SizedBox(height: 32),
+                      const SizedBox(height: MeetupSpacing.mediumLarge),
                       Text(
                         'O meetup é formado pela comunidade e para a comunidade. Qualquer um é bem vindo para contribuir, seja você iniciante ou experiente, sempre tem uma forma de contribuir.',
                         style: Theme.of(context).textTheme.bodyText1,
@@ -227,12 +215,12 @@ class _HomePageState extends State<HomePage> {
                     'Programação do evento',
                     style: Theme.of(context).textTheme.headline1,
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: MeetupSpacing.mediumLarge),
                   Text(
                     'Confira aqui tudo que vai rolar no dia e não perca nada.',
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: MeetupSpacing.big),
                   SizedBox(
                     height: 190,
                     child: CustomScrollView(
@@ -263,8 +251,8 @@ class _HomePageState extends State<HomePage> {
   Widget _eventDescriptionItem(String description) {
     return Container(
       width: 235,
-      margin: const EdgeInsets.only(right: 40),
-      padding: const EdgeInsets.all(32),
+      margin: const EdgeInsets.only(right: MeetupSpacing.big),
+      padding: const EdgeInsets.all(MeetupSpacing.large),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.white.withOpacity(0.5)),
@@ -273,7 +261,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Image.asset('assets/images/analysis.png', width: 50),
-          const SizedBox(height: 16),
+          const SizedBox(height: MeetupSpacing.medium),
           Text(
             description,
             textAlign: TextAlign.center,
@@ -293,15 +281,19 @@ class _HomePageState extends State<HomePage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Nossos palestrantes',
+                  'Nossos',
                   style: Theme.of(context).textTheme.headline1,
                 ),
-                const SizedBox(height: 32),
+                Text(
+                  'palestrantes',
+                  style: Theme.of(context).textTheme.headline1,
+                ),
+                const SizedBox(height: MeetupSpacing.large),
                 Text(
                   'Confira aqui os palestrantes que vão apresentar o que vão rolar no dia.',
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: MeetupSpacing.mediumLarge),
                 Text(
                   'Confira aqui os palestrantes que vão apresentar o que vão rolar no dia.',
                   style: Theme.of(context).textTheme.bodyText1,
@@ -334,7 +326,7 @@ class _HomePageState extends State<HomePage> {
                       name: 'Sostenes Gomes',
                       description: 'Head Mobile',
                     ),
-                    const SizedBox(width: 48),
+                    const SizedBox(width: MeetupSpacing.big),
                     _userCard(
                       imagePath: 'assets/images/davi.png',
                       name: 'Davi Resio',
@@ -379,9 +371,9 @@ class _HomePageState extends State<HomePage> {
               fit: BoxFit.cover,
             ),
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: MeetupSpacing.large),
           Text(name, style: Theme.of(context).textTheme.headline2),
-          const SizedBox(height: 8),
+          const SizedBox(height: MeetupSpacing.small),
           Text(
             description,
             style: Theme.of(context).textTheme.subtitle2,
@@ -412,10 +404,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            Image.asset(
-              'assets/images/not_loose_time.png',
-              width: 500,
-            ),
+            Image.asset('assets/images/not_loose_time.png', width: 500),
           ],
         ),
       );
@@ -426,13 +415,9 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset('assets/images/flutter_logo.png', width: 170),
+              Image.asset('assets/images/logo.png', width: 170),
               Text('Design by | behance.net/joaotrld',
-                  style: TextStyle(
-                    color: Color(0xffa3a3a3),
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  )),
+                  style: Theme.of(context).textTheme.overline),
               Row(
                 children: [
                   Icon(
