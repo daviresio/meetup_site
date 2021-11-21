@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset('assets/images/logo.png', width: 170),
+            Image.asset('assets/images/logo.png'),
             Row(
               children: [
                 MeetupTextButton(label: 'Nossa comunidade', onPressed: () {}),
@@ -184,7 +184,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(width: MeetupSpacing.small),
-            Image.asset('assets/images/banner.png', width: 652),
+            Image.asset('assets/images/banner.png'),
           ],
         ),
       );
@@ -198,7 +198,7 @@ class _HomePageState extends State<HomePage> {
           key: _ourComunityKey,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset('assets/images/our_community.png', width: 576),
+            Image.asset('assets/images/our_community.png'),
             const SizedBox(width: MeetupSpacing.big3),
             Expanded(
               child: Column(
@@ -297,7 +297,7 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset('assets/images/analysis.png', width: 50),
+          Image.asset('assets/images/analysis.png'),
           const SizedBox(height: MeetupSpacing.small),
           Text(
             description,
@@ -463,7 +463,16 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            Image.asset('assets/images/not_loose_time.png', width: 500),
+            Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                    margin: EdgeInsets.only(
+                      top: MeetupSpacing.big3 + MeetupSpacing.medium,
+                      left: MeetupSpacing.medium,
+                    ),
+                    child:
+                        Image.asset('assets/images/squares_and_circles.png'))),
+            Image.asset('assets/images/not_loose_time.png'),
           ],
         ),
       );
@@ -476,7 +485,7 @@ class _HomePageState extends State<HomePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset('assets/images/logo.png', width: 170),
+            Image.asset('assets/images/logo.png'),
             Text('Design by | behance.net/joaotrld',
                 style: Theme.of(context).textTheme.overline),
             Row(
