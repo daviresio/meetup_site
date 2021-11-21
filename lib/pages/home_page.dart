@@ -18,172 +18,186 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: MeetupColors.black,
-      // backgroundColor: Colors.white,
-      body: CustomScrollView(
+    return Container(
+      color: MeetupColors.black,
+      child: CustomScrollView(
         physics: ClampingScrollPhysics(),
         slivers: [
-          _header,
-          const SliverToBoxAdapter(child: SizedBox(height: 50)),
-          _banner,
-          const SliverToBoxAdapter(child: SizedBox(height: 174)),
-          _ourComunity,
-          const SliverToBoxAdapter(child: SizedBox(height: 174)),
-          _eventTopics,
-          const SliverToBoxAdapter(child: SizedBox(height: 174)),
-          _speakers,
-          const SliverToBoxAdapter(child: SizedBox(height: 174)),
-          _register,
-          const SliverToBoxAdapter(child: SizedBox(height: 174)),
-          _footer,
+          SliverToBoxAdapter(
+              child: Stack(
+            children: [
+              Center(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 1280),
+                  child: _content,
+                ),
+              ),
+            ],
+          )),
         ],
       ),
     );
   }
 
-  Widget get _header => SliverToBoxAdapter(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  Widget get _content => Padding(
+        padding: const EdgeInsets.only(
+          left: MeetupSpacing.big1,
+          top: MeetupSpacing.large,
+          right: MeetupSpacing.big1,
+        ),
+        child: Column(
           children: [
-            Image.asset('assets/images/logo.png', width: 170),
-            Row(
-              children: [
-                MeetupTextButton(label: 'Nossa comunidade', onPressed: () {}),
-                MeetupTextButton(label: 'O Evento', onPressed: () {}),
-                MeetupTextButton(label: 'Palestrantes', onPressed: () {}),
-                const SizedBox(width: MeetupSpacing.medium),
-                MeetupPrimaryButton(
-                    label: 'Faça sua inscrição', onPressed: () {}),
-              ],
-            ),
+            _header,
+            SizedBox(height: MeetupSpacing.huge2),
+            _banner,
+            SizedBox(height: MeetupSpacing.huge1),
+            _ourComunity,
+            SizedBox(height: MeetupSpacing.huge3),
+            _eventTopics,
+            _speakers,
+            SizedBox(height: MeetupSpacing.big2),
+            _register,
+            SizedBox(height: MeetupSpacing.huge2),
+            _footer,
+            SizedBox(height: MeetupSpacing.big2),
           ],
         ),
       );
 
-  Widget get _banner => SliverToBoxAdapter(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '13/12 ÀS 19H',
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                  const SizedBox(height: MeetupSpacing.small),
-                  Text(
-                    'VENHA',
-                    style: Theme.of(context).textTheme.headline1,
-                  ),
-                  Text(
-                    'DECOLAR SEUS',
-                    style: Theme.of(context).textTheme.headline1,
-                  ),
-                  Text(
-                    'CONHECIMENTOS',
-                    style: Theme.of(context).textTheme.headline1,
-                  ),
-                  const SizedBox(height: MeetupSpacing.small),
-                  Text(
-                    'Crie network e aprenda em um ambiente colaborativo. Com reuniões mensais nos melhores espaços de inovação em Ribeirão Preto.',
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  const SizedBox(height: MeetupSpacing.large),
-                  MeetupPrimaryButton(
-                    label: 'Inscreva-se',
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-            Image.asset(
-              'assets/images/banner.png',
-              width: 652,
-            ),
-          ],
-        ),
-      );
-
-  Widget get _ourComunity => SliverToBoxAdapter(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset('assets/images/our_community.png', width: 576),
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Nossa comunidade',
-                    style: Theme.of(context).textTheme.headline1,
-                  ),
-                  const SizedBox(height: MeetupSpacing.large),
-                  Text(
-                    'O meetup é formado pela comunidade e para a comunidade. Qualquer um é bem vindo para contribuir, seja você iniciante ou experiente, sempre tem uma forma de contribuir.',
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  const SizedBox(height: MeetupSpacing.mediumLarge),
-                  Text(
-                    'O meetup é formado pela comunidade e para a comunidade. Qualquer um é bem vindo para contribuir, seja você iniciante ou experiente, sempre tem uma forma de contribuir.',
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
-
-  Widget get _eventTopics => SliverToBoxAdapter(
-        child: Container(
-          width: double.maxFinite,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+  Widget get _header => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Image.asset('assets/images/logo.png', width: 170),
+          Row(
             children: [
-              Text(
-                'Programação do evento',
-                style: Theme.of(context).textTheme.headline1,
-              ),
-              const SizedBox(height: MeetupSpacing.mediumLarge),
-              Text(
-                'Confira aqui tudo que vai rolar no dia e não perca nada.',
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
-              const SizedBox(height: MeetupSpacing.big),
-              SizedBox(
-                height: 190,
-                child: CustomScrollView(
-                  scrollDirection: Axis.horizontal,
-                  slivers: [
-                    SliverList(
-                      delegate: SliverChildListDelegate([
-                        _eventDescriptionItem(
-                            'Vai rolar isso, isso isso mais isso e isso também'),
-                        _eventDescriptionItem(
-                            'Vai rolar isso, isso isso mais isso e isso também'),
-                        _eventDescriptionItem(
-                            'Vai rolar isso, isso isso mais isso e isso também'),
-                        _eventDescriptionItem(
-                            'Vai rolar isso, isso isso mais isso e isso também'),
-                      ]),
-                    )
-                  ],
-                ),
-              )
+              MeetupTextButton(label: 'Nossa comunidade', onPressed: () {}),
+              MeetupTextButton(label: 'O Evento', onPressed: () {}),
+              MeetupTextButton(label: 'Palestrantes', onPressed: () {}),
+              const SizedBox(width: MeetupSpacing.small),
+              MeetupPrimaryButton(
+                  label: 'Faça sua inscrição', onPressed: () {}),
             ],
           ),
+        ],
+      );
+
+  Widget get _banner => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '13/12 ÀS 19H',
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                const SizedBox(height: MeetupSpacing.tiny),
+                Text(
+                  'VENHA',
+                  style: Theme.of(context).textTheme.headline1,
+                ),
+                Text(
+                  'DECOLAR SEUS',
+                  style: Theme.of(context).textTheme.headline1,
+                ),
+                Text(
+                  'CONHECIMENTOS',
+                  style: Theme.of(context).textTheme.headline1,
+                ),
+                const SizedBox(height: MeetupSpacing.tiny),
+                Text(
+                  'Crie network e aprenda em um ambiente colaborativo. Com reuniões mensais nos melhores espaços de inovação em Ribeirão Preto.',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+                const SizedBox(height: MeetupSpacing.large),
+                MeetupPrimaryButton(
+                  label: 'Inscreva-se',
+                  onPressed: () {},
+                ),
+                const SizedBox(height: MeetupSpacing.huge2),
+              ],
+            ),
+          ),
+          const SizedBox(width: MeetupSpacing.small),
+          Image.asset('assets/images/banner.png', width: 652),
+        ],
+      );
+
+  Widget get _ourComunity => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Image.asset('assets/images/our_community.png', width: 576),
+          const SizedBox(width: MeetupSpacing.big3),
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Nossa comunidade',
+                  style: Theme.of(context).textTheme.headline1,
+                ),
+                const SizedBox(height: MeetupSpacing.large),
+                Text(
+                  'O meetup é formado pela comunidade e para a comunidade. Qualquer um é bem vindo para contribuir, seja você iniciante ou experiente, sempre tem uma forma de contribuir.',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+                const SizedBox(height: MeetupSpacing.medium),
+                Text(
+                  'O meetup é formado pela comunidade e para a comunidade. Qualquer um é bem vindo para contribuir, seja você iniciante ou experiente, sempre tem uma forma de contribuir.',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+
+  Widget get _eventTopics => Container(
+        width: double.maxFinite,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Programação do evento',
+              style: Theme.of(context).textTheme.headline1,
+            ),
+            const SizedBox(height: MeetupSpacing.medium),
+            Text(
+              'Confira aqui tudo que vai rolar no dia e não perca nada.',
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+            const SizedBox(height: MeetupSpacing.big1),
+            SizedBox(
+              height: 190,
+              child: CustomScrollView(
+                scrollDirection: Axis.horizontal,
+                slivers: [
+                  SliverList(
+                    delegate: SliverChildListDelegate([
+                      _eventDescriptionItem(
+                          'Vai rolar isso, isso isso mais isso e isso também'),
+                      _eventDescriptionItem(
+                          'Vai rolar isso, isso isso mais isso e isso também'),
+                      _eventDescriptionItem(
+                          'Vai rolar isso, isso isso mais isso e isso também'),
+                      _eventDescriptionItem(
+                          'Vai rolar isso, isso isso mais isso e isso também'),
+                    ]),
+                  )
+                ],
+              ),
+            )
+          ],
         ),
       );
 
   Widget _eventDescriptionItem(String description) {
     return Container(
       width: 235,
-      margin: const EdgeInsets.only(right: MeetupSpacing.big),
+      margin: const EdgeInsets.only(right: MeetupSpacing.big1),
       padding: const EdgeInsets.all(MeetupSpacing.large),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
@@ -193,7 +207,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Image.asset('assets/images/analysis.png', width: 50),
-          const SizedBox(height: MeetupSpacing.medium),
+          const SizedBox(height: MeetupSpacing.small),
           Text(
             description,
             textAlign: TextAlign.center,
@@ -204,56 +218,59 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget get _speakers => SliverToBoxAdapter(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Nossos',
-                  style: Theme.of(context).textTheme.headline1,
+  Widget get _speakers => Stack(
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+              width: 425,
+              height: 425,
+              margin: EdgeInsets.only(top: 100, left: 280),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(MeetupRadius.circular),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: [0, 0.4, 0.6],
+                  colors: [
+                    MeetupColors.blue.withOpacity(0.6),
+                    MeetupColors.purple3.withOpacity(0.1),
+                    MeetupColors.purple3.withOpacity(0),
+                  ],
                 ),
-                Text(
-                  'palestrantes',
-                  style: Theme.of(context).textTheme.headline1,
-                ),
-                const SizedBox(height: MeetupSpacing.large),
-                Text(
-                  'Confira aqui os palestrantes que vão apresentar o que vão rolar no dia.',
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-                const SizedBox(height: MeetupSpacing.mediumLarge),
-                Text(
-                  'Confira aqui os palestrantes que vão apresentar o que vão rolar no dia.',
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-              ],
+              ),
             ),
-            Stack(
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: MeetupSpacing.huge3),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Positioned(
-                  top: -100,
-                  left: -100,
-                  child: Container(
-                    width: 425,
-                    height: 425,
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.circular(MeetupRadius.circular),
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          MeetupColors.blue,
-                          MeetupColors.purple1.withOpacity(0),
-                        ],
-                      ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Nossos',
+                      style: Theme.of(context).textTheme.headline1,
                     ),
-                  ),
+                    Text(
+                      'palestrantes',
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                    const SizedBox(height: MeetupSpacing.large),
+                    Text(
+                      'Confira aqui os palestrantes que vão apresentar o que vão rolar no dia.',
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    const SizedBox(height: MeetupSpacing.medium),
+                    Text(
+                      'Confira aqui os palestrantes que vão apresentar o que vão rolar no dia.',
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ],
                 ),
+                const SizedBox(width: MeetupSpacing.large),
                 Row(
                   children: [
                     _userCard(
@@ -261,7 +278,7 @@ class _HomePageState extends State<HomePage> {
                       name: 'Sostenes Gomes',
                       description: 'Head Mobile',
                     ),
-                    const SizedBox(width: MeetupSpacing.big),
+                    const SizedBox(width: MeetupSpacing.big1),
                     _userCard(
                       imagePath: 'assets/images/davi.png',
                       name: 'Davi Resio',
@@ -270,9 +287,9 @@ class _HomePageState extends State<HomePage> {
                   ],
                 )
               ],
-            )
-          ],
-        ),
+            ),
+          ),
+        ],
       );
 
   Widget _userCard({
@@ -308,7 +325,7 @@ class _HomePageState extends State<HomePage> {
           ),
           const SizedBox(height: MeetupSpacing.large),
           Text(name, style: Theme.of(context).textTheme.headline2),
-          const SizedBox(height: MeetupSpacing.small),
+          const SizedBox(height: MeetupSpacing.tiny),
           Text(
             description,
             style: Theme.of(context).textTheme.subtitle2,
@@ -318,59 +335,45 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget get _register => SliverToBoxAdapter(
-        child: Stack(
-          children: [
-            Positioned(
-              bottom: 70,
-              child: Container(
-                width: 1000,
-                height: 440,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomLeft,
-                    end: Alignment.topRight,
-                    colors: [
-                      MeetupColors.purple2,
-                      MeetupColors.blue,
-                    ],
-                  ),
+  Widget get _register => Stack(
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+              height: 440,
+              margin: EdgeInsets.only(top: MeetupSpacing.big3),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                gradient: LinearGradient(
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.topRight,
+                  colors: [
+                    MeetupColors.purple2,
+                    MeetupColors.blue,
+                  ],
                 ),
               ),
             ),
-            Image.asset('assets/images/not_loose_time.png', width: 500),
-          ],
-        ),
+          ),
+          Image.asset('assets/images/not_loose_time.png', width: 500),
+        ],
       );
 
-  Widget get _footer => SliverToBoxAdapter(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  Widget get _footer => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Image.asset('assets/images/logo.png', width: 170),
+          Text('Design by | behance.net/joaotrld',
+              style: Theme.of(context).textTheme.overline),
+          Row(
             children: [
-              Image.asset('assets/images/logo.png', width: 170),
-              Text('Design by | behance.net/joaotrld',
-                  style: Theme.of(context).textTheme.overline),
-              Row(
-                children: [
-                  Icon(
-                    MeetupIcons.linkedin,
-                    color: Colors.white,
-                  ),
-                  Icon(
-                    MeetupIcons.instagram,
-                    color: Colors.white,
-                  ),
-                  Icon(
-                    MeetupIcons.youtube,
-                    color: Colors.white,
-                  ),
-                ],
-              ),
+              Icon(MeetupIcons.linkedin, color: Colors.white),
+              const SizedBox(width: MeetupSpacing.medium),
+              Icon(MeetupIcons.instagram, color: Colors.white),
+              const SizedBox(width: MeetupSpacing.medium),
+              Icon(MeetupIcons.youtube, color: Colors.white),
             ],
           ),
-        ),
+        ],
       );
 }

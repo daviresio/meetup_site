@@ -8,5 +8,6 @@ class MeetupColors {
   static const gray3 = Color(0xFF7A7786);
   static const purple1 = Color(0xFF9D8DE6);
   static const purple2 = Color(0xFF623CEA);
+  static const purple3 = Color(0xFF8363f3);
   static const blue = Color(0xFF00C7FA);
 }
