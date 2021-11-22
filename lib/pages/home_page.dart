@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:flip_card/flip_card.dart';
+import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:meetup_site/components/blur_circle.dart';
 import 'package:meetup_site/components/meetup_primary_button.dart';
@@ -16,23 +18,72 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final _bannerKey = GlobalKey();
   final _ourComunityKey = GlobalKey();
   final _speakersKey = GlobalKey();
 
   var blurCircles = <Widget>[];
 
+  late final _animationBannerController;
+  late final _animationOurCommunityController;
+
+  late final Animation<double> _animationBannerValue;
+  late final Animation<double> _animationOurCommunityValue;
+
+  late final FlipCardController _flipCardController1;
+  late final FlipCardController _flipCardController2;
+
   @override
   void initState() {
     super.initState();
+
+    _animationBannerController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+
+    _animationOurCommunityController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+
+    _animationBannerValue = Tween<double>(
+      begin: 0.0,
+      end: 0.3,
+    ).animate(
+      CurvedAnimation(
+        parent: _animationBannerController,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    _animationOurCommunityValue = Tween<double>(
+      begin: 0.0,
+      end: 0.2,
+    ).animate(
+      CurvedAnimation(
+        parent: _animationOurCommunityController,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    _flipCardController1 = FlipCardController();
+    _flipCardController2 = FlipCardController();
+  }
+
+  @override
+  void dispose() {
+    _animationBannerController.dispose();
+    _animationOurCommunityController.dispose();
+    super.dispose();
   }
 
   double yWidgetPosition(GlobalKey key) {
     if (key.currentContext == null) {
-      print('nulo');
       return 0;
     }
+
     final RenderBox renderBox =
         key.currentContext!.findRenderObject() as RenderBox;
     final position = renderBox.localToGlobal(Offset.zero);
@@ -184,7 +235,26 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(width: MeetupSpacing.small),
-            Image.asset('assets/images/banner.png'),
+            MouseRegion(
+              onHover: (event) {
+                _animationBannerController.forward();
+              },
+              onExit: (event) {
+                _animationBannerController.reverse();
+              },
+              child: AnimatedBuilder(
+                animation: _animationBannerController,
+                builder: (context, child) => Transform(
+                  transform: Matrix4.identity()
+                    ..setEntry(3, 2, 0.001)
+                    ..rotateY(_animationBannerValue.value)
+                    ..scale(1 + _animationBannerValue.value)
+                    ..translate(_animationBannerValue.value * 100, 0),
+                  alignment: Alignment.centerRight,
+                  child: Image.asset('assets/images/banner.png'),
+                ),
+              ),
+            ),
           ],
         ),
       );
@@ -198,7 +268,26 @@ class _HomePageState extends State<HomePage> {
           key: _ourComunityKey,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset('assets/images/our_community.png'),
+            MouseRegion(
+              onHover: (event) {
+                _animationOurCommunityController.forward();
+              },
+              onExit: (event) {
+                _animationOurCommunityController.reverse();
+              },
+              child: AnimatedBuilder(
+                animation: _animationOurCommunityController,
+                builder: (context, child) => Transform(
+                  transform: Matrix4.identity()
+                    ..setEntry(3, 2, 0.001)
+                    ..rotateY(-_animationOurCommunityValue.value)
+                    ..scale(1 + _animationOurCommunityValue.value)
+                    ..translate(-_animationOurCommunityValue.value * 100, 0),
+                  alignment: Alignment.centerLeft,
+                  child: Image.asset('assets/images/our_community.png'),
+                ),
+              ),
+            ),
             const SizedBox(width: MeetupSpacing.big3),
             Expanded(
               child: Column(
@@ -377,13 +466,21 @@ class _HomePageState extends State<HomePage> {
                         _userCard(
                           imagePath: 'assets/images/sostenes.jpeg',
                           name: 'Sostenes Gomes',
-                          description: 'Head Mobile',
+                          jobPosition: 'Head Mobile',
+                          title: 'Arquitetando apps flutter',
+                          description:
+                              'Nessa palestra vou falar sobre os principais fatores que devemos levar em consideração para a arquitetura de um app flutter, e apresentar opções de arquitetura para o seu app.',
+                          flipController: _flipCardController1,
                         ),
                         const SizedBox(width: MeetupSpacing.big1),
                         _userCard(
                           imagePath: 'assets/images/davi.png',
                           name: 'Davi Resio',
-                          description: 'Flutter developer',
+                          jobPosition: 'Flutter developer',
+                          title: 'Interfaces fora da curva com CustomPainter',
+                          description:
+                              'Nessa palestra vou mostrar cenários em que na Dryve fizemos o uso de CustomPaint (canvas) para criar interfaces únicas, em cenários que não seria possível, ou seria muito difícil alcançar estilizando com widgets tradicionais.',
+                          flipController: _flipCardController2,
                         ),
                       ],
                     )
@@ -398,42 +495,101 @@ class _HomePageState extends State<HomePage> {
   Widget _userCard({
     required String imagePath,
     required String name,
+    required String jobPosition,
+    required String title,
     required String description,
+    required FlipCardController flipController,
   }) {
-    return Container(
-      width: 280,
-      height: 370,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.4),
-            blurRadius: 8,
-            offset: Offset(0, 4),
+    return MouseRegion(
+      onHover: (event) {
+        if (flipController.state!.isFront) {
+          flipController.toggleCard();
+        }
+      },
+      onExit: (event) async {
+        if (flipController.controller!.isAnimating) {
+          await Future.delayed(const Duration(seconds: 1));
+        }
+        if (!flipController.state!.isFront) {
+          flipController.toggleCard();
+        }
+      },
+      child: FlipCard(
+        flipOnTouch: false,
+        controller: flipController,
+        front: Container(
+          width: 280,
+          height: 370,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 8,
+                offset: Offset(0, 4),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(100),
-            child: Image.asset(
-              imagePath,
-              width: 165,
-              height: 165,
-              fit: BoxFit.cover,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image.asset(
+                  imagePath,
+                  width: 165,
+                  height: 165,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(height: MeetupSpacing.large),
+              Text(name, style: Theme.of(context).textTheme.headline2),
+              const SizedBox(height: MeetupSpacing.tiny),
+              Text(
+                jobPosition,
+                style: Theme.of(context).textTheme.subtitle2,
+              ),
+            ],
+          ),
+        ),
+        back: Container(
+          width: 280,
+          height: 370,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 8,
+                offset: Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(MeetupSpacing.medium),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: MeetupSpacing.large),
+                Text(title,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2!
+                        .merge(TextStyle(color: MeetupColors.gray3))),
+                const SizedBox(height: MeetupSpacing.small),
+                Text(description,
+                    textAlign: TextAlign.justify,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .merge(TextStyle(color: MeetupColors.gray3))),
+              ],
             ),
           ),
-          const SizedBox(height: MeetupSpacing.large),
-          Text(name, style: Theme.of(context).textTheme.headline2),
-          const SizedBox(height: MeetupSpacing.tiny),
-          Text(
-            description,
-            style: Theme.of(context).textTheme.subtitle2,
-          ),
-        ],
+        ),
       ),
     );
   }
