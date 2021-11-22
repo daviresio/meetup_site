@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class MeetupColors {
   static const black = Colors.black;
   static const white = Colors.white;
+  static const light = Color(0xFFD1D1D1);
   static const gray1 = Color(0xFFA4A4A4);
   static const gray2 = Color(0xFF4E4B59);
   static const gray3 = Color(0xFF7A7786);

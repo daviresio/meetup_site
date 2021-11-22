@@ -4,10 +4,13 @@ import 'package:emojis/emojis.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:meetup_site/components/blur_circle.dart';
 import 'package:meetup_site/components/meetup_primary_button.dart';
 import 'package:meetup_site/components/meetup_radius.dart';
+import 'package:meetup_site/components/meetup_secundary_button.dart';
 import 'package:meetup_site/components/meetup_text_button.dart';
+import 'package:meetup_site/components/meetup_text_field.dart';
 import 'package:meetup_site/helpers/meetup_colors.dart';
 import 'package:meetup_site/helpers/meetup_icons.dart';
 import 'package:meetup_site/helpers/meetup_spacing.dart';
@@ -21,6 +24,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  final _formKey = GlobalKey<FormBuilderState>();
+
   final _bannerKey = GlobalKey();
   final _ourComunityKey = GlobalKey();
   final _speakersKey = GlobalKey();
@@ -546,7 +551,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ),
               ),
               const SizedBox(height: MeetupSpacing.large),
-              Text(name, style: Theme.of(context).textTheme.headline2),
+              Text(name, style: Theme.of(context).textTheme.headline3),
               const SizedBox(height: MeetupSpacing.tiny),
               Text(
                 jobPosition,
@@ -596,42 +601,108 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-  Widget get _register => Padding(
-        padding: const EdgeInsets.only(
-          left: MeetupSpacing.big1,
-          right: MeetupSpacing.big1,
-        ),
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                height: 440,
-                margin: EdgeInsets.only(top: MeetupSpacing.big3),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomLeft,
-                    end: Alignment.topRight,
-                    colors: [
-                      MeetupColors.purple2,
-                      MeetupColors.blue,
-                    ],
+  Widget get _register => GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: MeetupSpacing.big1,
+            right: MeetupSpacing.big1,
+          ),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  height: 440,
+                  width: double.maxFinite,
+                  alignment: Alignment.centerRight,
+                  margin: EdgeInsets.only(top: MeetupSpacing.big3),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomLeft,
+                      end: Alignment.topRight,
+                      colors: [
+                        MeetupColors.purple2,
+                        MeetupColors.blue,
+                      ],
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: MeetupSpacing.big3),
+                    child: FormBuilder(
+                      key: _formKey,
+                      child: Material(
+                        color: Colors.transparent,
+                        child: SizedBox(
+                          width: 480,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Não perca tempo,',
+                                  style: Theme.of(context).textTheme.headline2),
+                              Text('inscreva-se',
+                                  style: Theme.of(context).textTheme.headline2),
+                              const SizedBox(height: MeetupSpacing.large),
+                              Row(
+                                children: [
+                                  Flexible(
+                                    child: MeetupTextField(
+                                        name: 'name', label: 'Nome*'),
+                                  ),
+                                  const SizedBox(width: MeetupSpacing.small),
+                                  Flexible(
+                                    child: MeetupTextField(
+                                        name: 'phone', label: 'Telefone*'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: MeetupSpacing.small),
+                              MeetupTextField(name: 'email', label: 'E-mail*'),
+                              const SizedBox(height: MeetupSpacing.small),
+                              Row(
+                                children: [
+                                  Flexible(
+                                    child: MeetupTextField(
+                                        name: 'company', label: 'Empresa'),
+                                  ),
+                                  const SizedBox(width: MeetupSpacing.small),
+                                  Flexible(
+                                    child: MeetupTextField(
+                                        name: 'job', label: 'Área de atuação'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: MeetupSpacing.small),
+                              SizedBox(
+                                width: double.maxFinite,
+                                child: MeetupSecundaryButton(
+                                    label: 'Inscreva-se', onPressed: () {}),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-            Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                    margin: EdgeInsets.only(
-                      top: MeetupSpacing.big3 + MeetupSpacing.medium,
-                      left: MeetupSpacing.medium,
-                    ),
-                    child:
-                        Image.asset('assets/images/squares_and_circles.png'))),
-            Image.asset('assets/images/not_loose_time.png'),
-          ],
+              Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                      margin: EdgeInsets.only(
+                        top: MeetupSpacing.big3 + MeetupSpacing.medium,
+                        left: MeetupSpacing.medium,
+                      ),
+                      child: Image.asset(
+                          'assets/images/squares_and_circles.png'))),
+              Image.asset('assets/images/not_loose_time.png'),
+            ],
+          ),
         ),
       );
 

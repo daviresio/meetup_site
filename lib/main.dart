@@ -26,6 +26,14 @@ class MyApp extends StatelessWidget {
           ),
           headline2: TextStyle(
             fontFamily: 'Nominee',
+            fontSize: 36.0,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -2.5,
+            height: 1,
+            color: MeetupColors.white,
+          ),
+          headline3: TextStyle(
+            fontFamily: 'Nominee',
             fontSize: 24.0,
             fontWeight: FontWeight.w700,
             letterSpacing: -0.5,
@@ -69,7 +77,7 @@ class MyApp extends StatelessWidget {
             fontSize: 14.0,
             fontWeight: FontWeight.w500,
             letterSpacing: -0.2,
-            height: 1.1,
+            height: 1,
             color: MeetupColors.white,
           ),
           overline: TextStyle(

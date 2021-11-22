@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meetup_site/helpers/meetup_spacing.dart';
 
 class MeetupTextButton extends StatelessWidget {
   final String label;
@@ -8,11 +9,14 @@ class MeetupTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-        onPressed: onPressed,
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.symmetric(horizontal: 36, vertical: 16),
-        ),
-        child: Text(label, style: Theme.of(context).textTheme.button));
+    return SizedBox(
+      height: 38,
+      child: TextButton(
+          onPressed: onPressed,
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.symmetric(horizontal: MeetupSpacing.medium),
+          ),
+          child: Text(label, style: Theme.of(context).textTheme.button)),
+    );
   }
 }
