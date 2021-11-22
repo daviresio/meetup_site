@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:emojis/emojis.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:meetup_site/components/meetup_text_button.dart';
 import 'package:meetup_site/helpers/meetup_colors.dart';
 import 'package:meetup_site/helpers/meetup_icons.dart';
 import 'package:meetup_site/helpers/meetup_spacing.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -163,7 +165,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           _register,
           const SizedBox(height: MeetupSpacing.huge2),
           _footer,
-          const SizedBox(height: MeetupSpacing.big2),
+          const SizedBox(height: MeetupSpacing.big3),
         ],
       );
 
@@ -306,7 +308,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                   const SizedBox(height: MeetupSpacing.medium),
                   Text(
-                    'O meetup é formado pela comunidade e para a comunidade. Qualquer um é bem vindo para contribuir, seja você iniciante ou experiente, sempre tem uma forma de contribuir.',
+                    'Com reuniões mensais, é o lugar ideal para estar por dentro do flutter, além de conhecer o trabalho dos devs flutter da região de Ribeirão Preto.',
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],
@@ -354,16 +356,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       delegate: SliverChildListDelegate([
                         SizedBox(width: MeetupSpacing.big1),
                         _eventDescriptionItem(
-                            'Vai rolar isso, isso isso mais isso e isso também'),
+                            'Evento no espaço de inovação Bild Labs'),
                         SizedBox(width: MeetupSpacing.big1),
                         _eventDescriptionItem(
-                            'Vai rolar isso, isso isso mais isso e isso também'),
+                            'Palestra sobre arquitetar apps flutter'),
                         SizedBox(width: MeetupSpacing.big1),
                         _eventDescriptionItem(
-                            'Vai rolar isso, isso isso mais isso e isso também'),
+                            'Palestra sobre UI da vida real com CustomPainter'),
                         SizedBox(width: MeetupSpacing.big1),
                         _eventDescriptionItem(
-                            'Vai rolar isso, isso isso mais isso e isso também'),
+                            'Aproveite para fazer bastante network'),
                         SizedBox(width: MeetupSpacing.big1),
                       ]),
                     )
@@ -642,15 +644,41 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Image.asset('assets/images/logo.png'),
-            Text('Design by | behance.net/joaotrld',
-                style: Theme.of(context).textTheme.overline),
+            MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: () {
+                  launch('https://behance.net/joaotrld');
+                },
+                child: Text(
+                    'Designed with ${Emojis.redHeart} by | behance.net/joaotrld',
+                    style: Theme.of(context).textTheme.overline),
+              ),
+            ),
             Row(
               children: [
-                Icon(MeetupIcons.linkedin, color: Colors.white),
+                MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                        onTap: () =>
+                            launch('https://www.linkedin.com/groups/12586571/'),
+                        child:
+                            Icon(MeetupIcons.linkedin, color: Colors.white))),
                 const SizedBox(width: MeetupSpacing.medium),
-                Icon(MeetupIcons.instagram, color: Colors.white),
+                MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                        onTap: () =>
+                            launch('https://www.instagram.com/flutterrp/'),
+                        child:
+                            Icon(MeetupIcons.instagram, color: Colors.white))),
                 const SizedBox(width: MeetupSpacing.medium),
-                Icon(MeetupIcons.youtube, color: Colors.white),
+                MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                        onTap: () => launch(
+                            'https://www.youtube.com/channel/UC0X1kB62Khvp2USm4X5zlVw'),
+                        child: Icon(MeetupIcons.youtube, color: Colors.white))),
               ],
             ),
           ],

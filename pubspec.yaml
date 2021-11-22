@@ -24,6 +24,8 @@ dependencies:
   responsive_framework: 0.1.5
   flip_card: 0.6.0
   flutter_form_builder: 7.0.0
+  emojis: 0.9.9
+  url_launcher: 6.0.10
   flutter:
     sdk: flutter
 
