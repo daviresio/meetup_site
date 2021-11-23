@@ -6,6 +6,7 @@ import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:meetup_site/components/blur_circle.dart';
+import 'package:meetup_site/components/click_widget.dart';
 import 'package:meetup_site/components/meetup_primary_button.dart';
 import 'package:meetup_site/components/meetup_radius.dart';
 import 'package:meetup_site/components/meetup_secundary_button.dart';
@@ -118,17 +119,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             color: BlurCircleColor.purple,
           ),
           BlurCircle(
-            positionY: ourComunityY,
+            positionY: ourComunityY + 100,
             side: BlurCircleSide.left,
             color: BlurCircleColor.blue,
           ),
           BlurCircle(
-            positionY: speakersY,
+            positionY: speakersY + 200,
             side: BlurCircleSide.right,
             color: BlurCircleColor.blue,
           ),
           BlurCircle(
-            positionY: speakersY + 300,
+            positionY: speakersY + 500,
             side: BlurCircleSide.left,
             color: BlurCircleColor.purple,
           ),
@@ -199,6 +200,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ],
               ),
             ),
+            ResponsiveVisibility(
+              visible: false,
+              visibleWhen: [Condition.smallerThan(name: TABLET)],
+              child: ClickWidget(
+                onTap: () {},
+                child: Icon(MeetupIcons.bars_light, color: MeetupColors.white),
+              ),
+            ),
           ],
         ),
       );
@@ -211,12 +220,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           _animationBannerController.reverse();
         },
         child: Padding(
+          key: _bannerKey,
           padding: const EdgeInsets.only(
             left: MeetupSpacing.big1,
             right: MeetupSpacing.big1,
           ),
           child: ResponsiveRowColumn(
-            key: _bannerKey,
             rowSpacing: MeetupSpacing.small,
             columnSpacing: MeetupSpacing.large,
             rowMainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -231,30 +240,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '13/12 ÀS 19H',
-                      style: Theme.of(context).textTheme.subtitle1,
-                    ),
+                    Text('13/12 ÀS 19H',
+                        style: Theme.of(context).textTheme.subtitle1),
                     const SizedBox(height: MeetupSpacing.tiny),
-                    Text(
-                      'VENHA',
-                      style: Theme.of(context).textTheme.headline1,
-                    ),
-                    Text(
-                      'DECOLAR SEUS',
-                      style: Theme.of(context).textTheme.headline1,
-                    ),
-                    Text(
-                      'CONHECIMENTOS',
-                      style: Theme.of(context).textTheme.headline1,
-                    ),
+                    Text('VENHA', style: Theme.of(context).textTheme.headline1),
+                    Text('DECOLAR SEUS',
+                        style: Theme.of(context).textTheme.headline1),
+                    Text('CONHECIMENTOS',
+                        style: Theme.of(context).textTheme.headline1),
                     const SizedBox(height: MeetupSpacing.tiny),
                     ConstrainedBox(
                       constraints: BoxConstraints(maxWidth: 800),
                       child: Text(
-                        'Crie network e aprenda em um ambiente colaborativo. Com reuniões mensais nos melhores espaços de inovação em Ribeirão Preto.',
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
+                          'Crie network e aprenda em um ambiente colaborativo. Com reuniões mensais nos melhores espaços de inovação em Ribeirão Preto.',
+                          style: Theme.of(context).textTheme.bodyText1),
                     ),
                     const SizedBox(height: MeetupSpacing.large),
                     MeetupPrimaryButton(
@@ -295,48 +294,60 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           _animationOurCommunityController.reverse();
         },
         child: Padding(
+          key: _ourComunityKey,
           padding: const EdgeInsets.only(
             left: MeetupSpacing.big1,
             right: MeetupSpacing.big1,
           ),
-          child: Row(
-            key: _ourComunityKey,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: ResponsiveRowColumn(
+            rowSpacing: MeetupSpacing.big3,
+            columnSpacing: MeetupSpacing.huge1,
+            rowMainAxisAlignment: MainAxisAlignment.spaceBetween,
+            layout: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                ? ResponsiveRowColumnType.COLUMN
+                : ResponsiveRowColumnType.ROW,
             children: [
-              AnimatedBuilder(
-                animation: _animationOurCommunityController,
-                builder: (context, child) => Transform(
-                  transform: Matrix4.identity()
-                    ..setEntry(3, 2, 0.001)
-                    ..rotateY(-_animationOurCommunityValue.value)
-                    ..scale(1 + _animationOurCommunityValue.value)
-                    ..translate(-_animationOurCommunityValue.value * 100, 0),
-                  alignment: Alignment.centerLeft,
-                  child: Image.asset('assets/images/our_community.png'),
+              ResponsiveRowColumnItem(
+                rowFlex: 1,
+                child: AnimatedBuilder(
+                  animation: _animationOurCommunityController,
+                  builder: (context, child) => Transform(
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, 0.001)
+                      ..rotateY(-_animationOurCommunityValue.value)
+                      ..scale(1 + _animationOurCommunityValue.value)
+                      ..translate(-_animationOurCommunityValue.value * 100, 0),
+                    alignment: Alignment.centerLeft,
+                    child: Image.asset('assets/images/our_community.png'),
+                  ),
                 ),
               ),
-              const SizedBox(width: MeetupSpacing.big3),
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Nossa comunidade',
-                      style: Theme.of(context).textTheme.headline1,
-                    ),
-                    const SizedBox(height: MeetupSpacing.large),
-                    Text(
-                      'O meetup é formado pela comunidade e para a comunidade. Qualquer um é bem vindo para contribuir, seja você iniciante ou experiente, sempre tem uma forma de contribuir.',
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
-                    const SizedBox(height: MeetupSpacing.medium),
-                    Text(
-                      'Com reuniões mensais, é o lugar ideal para estar por dentro do flutter, além de conhecer o trabalho dos devs flutter da região de Ribeirão Preto.',
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
-                  ],
+              ResponsiveRowColumnItem(
+                rowFlex: 1,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 800),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Nossa comunidade',
+                        textAlign: TextAlign.left,
+                        style: Theme.of(context).textTheme.headline1,
+                      ),
+                      const SizedBox(height: MeetupSpacing.large),
+                      Text(
+                        'O meetup é formado pela comunidade e para a comunidade. Qualquer um é bem vindo para contribuir, seja você iniciante ou experiente, sempre tem uma forma de contribuir.',
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                      const SizedBox(height: MeetupSpacing.medium),
+                      Text(
+                        'Com reuniões mensais, é o lugar ideal para estar por dentro do flutter, além de conhecer o trabalho dos devs flutter da região de Ribeirão Preto.',
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -356,6 +367,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
               child: Text(
                 'Programação do evento',
+                textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline1,
               ),
             ),
@@ -367,6 +379,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
               child: Text(
                 'Confira aqui tudo que vai rolar no dia e não perca nada.',
+                textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyText1,
               ),
             ),
@@ -374,27 +387,31 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             SizedBox(
               height: 190,
               child: Center(
-                child: CustomScrollView(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  slivers: [
-                    SliverList(
-                      delegate: SliverChildListDelegate([
-                        SizedBox(width: MeetupSpacing.big1),
-                        _eventDescriptionItem(
-                            'Evento no espaço de inovação Bild Labs'),
-                        SizedBox(width: MeetupSpacing.big1),
-                        _eventDescriptionItem('Arquitetando apps flutter'),
-                        SizedBox(width: MeetupSpacing.big1),
-                        _eventDescriptionItem(
-                            'UI\'s fora da curva com CustomPainter'),
-                        SizedBox(width: MeetupSpacing.big1),
-                        _eventDescriptionItem(
-                            'Aproveite para fazer bastante network'),
-                        SizedBox(width: MeetupSpacing.big1),
-                      ]),
-                    )
-                  ],
+                child: ScrollConfiguration(
+                  behavior: ScrollConfiguration.of(context)
+                      .copyWith(scrollbars: false),
+                  child: CustomScrollView(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    slivers: [
+                      SliverList(
+                        delegate: SliverChildListDelegate([
+                          SizedBox(width: MeetupSpacing.big1),
+                          _eventDescriptionItem(
+                              'Evento no espaço de inovação Bild Labs'),
+                          SizedBox(width: MeetupSpacing.big1),
+                          _eventDescriptionItem('Arquitetando apps flutter'),
+                          SizedBox(width: MeetupSpacing.big1),
+                          _eventDescriptionItem(
+                              'UI\'s fora da curva com CustomPainter'),
+                          SizedBox(width: MeetupSpacing.big1),
+                          _eventDescriptionItem(
+                              'Aproveite para fazer bastante network'),
+                          SizedBox(width: MeetupSpacing.big1),
+                        ]),
+                      )
+                    ],
+                  ),
                 ),
               ),
             )
@@ -426,15 +443,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   Widget get _speakers => Padding(
+        key: _speakersKey,
         padding: const EdgeInsets.only(
           left: MeetupSpacing.big1,
           right: MeetupSpacing.big1,
         ),
         child: Stack(
-          key: _speakersKey,
           children: [
             Positioned(
-              top: 100,
+              bottom: 100,
               left: MediaQuery.of(context).size.width / 2 - 200,
               child: Container(
                 width: 425,
@@ -454,65 +471,96 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ),
               ),
             ),
-            FittedBox(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  top: MeetupSpacing.huge3,
-                  bottom: MeetupSpacing.big2,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'Nossos',
-                          style: Theme.of(context).textTheme.headline1,
-                        ),
-                        Text(
-                          'palestrantes',
-                          style: Theme.of(context).textTheme.headline1,
-                        ),
-                        const SizedBox(height: MeetupSpacing.large),
-                        Text(
-                          'Confira aqui os palestrantes que vão apresentar o que vão rolar no dia.',
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        const SizedBox(height: MeetupSpacing.medium),
-                        Text(
-                          'Confira aqui os palestrantes que vão apresentar o que vão rolar no dia.',
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                      ],
+            Padding(
+              padding: const EdgeInsets.only(
+                top: MeetupSpacing.huge3,
+                bottom: MeetupSpacing.big2,
+              ),
+              child: ResponsiveRowColumn(
+                rowSpacing: MeetupSpacing.large,
+                columnSpacing: MeetupSpacing.big1,
+                rowMainAxisAlignment: MainAxisAlignment.spaceBetween,
+                layout: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                    ? ResponsiveRowColumnType.COLUMN
+                    : ResponsiveRowColumnType.ROW,
+                children: [
+                  ResponsiveRowColumnItem(
+                    rowFlex: 1,
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: 800),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ResponsiveVisibility(
+                            visible: true,
+                            hiddenWhen: [Condition.smallerThan(name: DESKTOP)],
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Nossos',
+                                  style: Theme.of(context).textTheme.headline1,
+                                ),
+                                Text(
+                                  'palestrantes',
+                                  style: Theme.of(context).textTheme.headline1,
+                                ),
+                              ],
+                            ),
+                          ),
+                          ResponsiveVisibility(
+                              visible: false,
+                              visibleWhen: [
+                                Condition.smallerThan(name: DESKTOP)
+                              ],
+                              child: Text(
+                                'Nossos palestrantes',
+                                style: Theme.of(context).textTheme.headline1,
+                              )),
+                          const SizedBox(height: MeetupSpacing.large),
+                          Text(
+                            'Sóstenes Gomes é um engenheiro de software com mais de 10 anos de experiência profissional. Já trabalhou em grandes projetos de software, envolvendo milhões de usuários. Nestes projetos eu atuei em várias partes, como levantamento de requisitos, prototipação, validação, arquitetura, desenvolvimento, testes, análise de dados.',
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
+                          const SizedBox(height: MeetupSpacing.medium),
+                          Text(
+                            'Davi Resio é um engenheiro de software que já trabalhou em diversos projetos com diferentes stacks ao longo da carreira. Sempre procura entregar o melhor em tudo que faz, e por isso gosta de estar sempre se atualizando para estar um passo a frente.',
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
+                        ],
+                      ),
                     ),
-                    const SizedBox(width: MeetupSpacing.large),
-                    Row(
-                      children: [
-                        _userCard(
-                          imagePath: 'assets/images/sostenes.jpeg',
-                          name: 'Sostenes Gomes',
-                          jobPosition: 'Head Mobile',
-                          title: 'Arquitetando apps flutter',
-                          description:
-                              'Nessa palestra vou falar sobre os principais fatores que devemos levar em consideração para a arquitetura de um app flutter, e apresentar opções de arquitetura para o seu app.',
-                          flipController: _flipCardController1,
-                        ),
-                        const SizedBox(width: MeetupSpacing.big1),
-                        _userCard(
-                          imagePath: 'assets/images/davi.png',
-                          name: 'Davi Resio',
-                          jobPosition: 'Flutter developer',
-                          title: 'Interfaces fora da curva com CustomPainter',
-                          description:
-                              'Nessa palestra vou mostrar cenários em que na Dryve fizemos o uso de CustomPaint (canvas) para criar interfaces únicas, em cenários que não seria possível, ou seria muito difícil alcançar estilizando com widgets tradicionais.',
-                          flipController: _flipCardController2,
-                        ),
-                      ],
-                    )
-                  ],
-                ),
+                  ),
+                  ResponsiveRowColumnItem(
+                    rowFlex: 1,
+                    child: FittedBox(
+                      child: Row(
+                        children: [
+                          _userCard(
+                            imagePath: 'assets/images/sostenes.jpeg',
+                            name: 'Sostenes Gomes',
+                            jobPosition: 'Head Mobile',
+                            title: 'Arquitetando apps flutter',
+                            description:
+                                'Nessa palestra vou falar sobre os principais fatores que devemos levar em consideração para a arquitetura de um app flutter, e apresentar opções de arquitetura para o seu app.',
+                            flipController: _flipCardController1,
+                          ),
+                          const SizedBox(width: MeetupSpacing.big1),
+                          _userCard(
+                            imagePath: 'assets/images/davi.png',
+                            name: 'Davi Resio',
+                            jobPosition: 'Flutter developer',
+                            title: 'Interfaces fora da curva com CustomPainter',
+                            description:
+                                'Nessa palestra vou mostrar cenários em que na Dryve fizemos o uso de CustomPaint (canvas) para criar interfaces únicas, em cenários que não seria possível, ou seria muito difícil alcançar estilizando com widgets tradicionais.',
+                            flipController: _flipCardController2,
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           ],
@@ -542,7 +590,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         }
       },
       child: FlipCard(
-        flipOnTouch: false,
         controller: flipController,
         front: Container(
           width: 280,
@@ -651,59 +698,65 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ],
                     ),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: MeetupSpacing.big3),
-                    child: FormBuilder(
-                      key: _formKey,
-                      child: Material(
-                        color: Colors.transparent,
-                        child: SizedBox(
-                          width: 480,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Não perca tempo,',
-                                  style: Theme.of(context).textTheme.headline2),
-                              Text('inscreva-se',
-                                  style: Theme.of(context).textTheme.headline2),
-                              const SizedBox(height: MeetupSpacing.large),
-                              Row(
-                                children: [
-                                  Flexible(
-                                    child: MeetupTextField(
-                                        name: 'name', label: 'Nome*'),
-                                  ),
-                                  const SizedBox(width: MeetupSpacing.small),
-                                  Flexible(
-                                    child: MeetupTextField(
-                                        name: 'phone', label: 'Telefone*'),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: MeetupSpacing.small),
-                              MeetupTextField(name: 'email', label: 'E-mail*'),
-                              const SizedBox(height: MeetupSpacing.small),
-                              Row(
-                                children: [
-                                  Flexible(
-                                    child: MeetupTextField(
-                                        name: 'company', label: 'Empresa'),
-                                  ),
-                                  const SizedBox(width: MeetupSpacing.small),
-                                  Flexible(
-                                    child: MeetupTextField(
-                                        name: 'job', label: 'Área de atuação'),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: MeetupSpacing.small),
-                              SizedBox(
-                                width: double.maxFinite,
-                                child: MeetupSecundaryButton(
-                                    label: 'Inscreva-se', onPressed: () {}),
-                              ),
-                            ],
+                  child: FittedBox(
+                    child: Padding(
+                      padding: const EdgeInsets.all(MeetupSpacing.big3),
+                      child: FormBuilder(
+                        key: _formKey,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: SizedBox(
+                            width: 480,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Não perca tempo,',
+                                    style:
+                                        Theme.of(context).textTheme.headline2),
+                                Text('inscreva-se',
+                                    style:
+                                        Theme.of(context).textTheme.headline2),
+                                const SizedBox(height: MeetupSpacing.large),
+                                Row(
+                                  children: [
+                                    Flexible(
+                                      child: MeetupTextField(
+                                          name: 'name', label: 'Nome*'),
+                                    ),
+                                    const SizedBox(width: MeetupSpacing.small),
+                                    Flexible(
+                                      child: MeetupTextField(
+                                          name: 'phone', label: 'Telefone*'),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: MeetupSpacing.small),
+                                MeetupTextField(
+                                    name: 'email', label: 'E-mail*'),
+                                const SizedBox(height: MeetupSpacing.small),
+                                Row(
+                                  children: [
+                                    Flexible(
+                                      child: MeetupTextField(
+                                          name: 'company', label: 'Empresa'),
+                                    ),
+                                    const SizedBox(width: MeetupSpacing.small),
+                                    Flexible(
+                                      child: MeetupTextField(
+                                          name: 'job',
+                                          label: 'Área de atuação'),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: MeetupSpacing.small),
+                                SizedBox(
+                                  width: double.maxFinite,
+                                  child: MeetupSecundaryButton(
+                                      label: 'Inscreva-se', onPressed: () {}),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -720,7 +773,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ),
                       child: Image.asset(
                           'assets/images/squares_and_circles.png'))),
-              Image.asset('assets/images/not_loose_time.png'),
+              ResponsiveVisibility(
+                visible: true,
+                hiddenWhen: [Condition.smallerThan(name: DESKTOP)],
+                child: Image.asset('assets/images/not_loose_time.png'),
+              ),
+              ResponsiveVisibility(
+                visible: false,
+                visibleWhen: [Condition.smallerThan(name: DESKTOP)],
+                child: Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Image.asset(
+                    'assets/images/not_loose_time.png',
+                    width: 200,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -731,46 +800,60 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           left: MeetupSpacing.big1,
           right: MeetupSpacing.big1,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: ResponsiveRowColumn(
+          columnSpacing: MeetupSpacing.big1,
+          rowMainAxisAlignment: MainAxisAlignment.spaceBetween,
+          layout: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+              ? ResponsiveRowColumnType.COLUMN
+              : ResponsiveRowColumnType.ROW,
           children: [
-            Image.asset('assets/images/logo.png'),
-            MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: GestureDetector(
-                onTap: () {
-                  launch('https://behance.net/joaotrld');
-                },
-                child: Text(
-                    'Designed with ${Emojis.redHeart} by | behance.net/joaotrld',
-                    style: Theme.of(context).textTheme.overline),
+            ResponsiveRowColumnItem(
+              rowFlex: 1,
+              rowOrder: 1,
+              child: ResponsiveVisibility(
+                  visible: true,
+                  hiddenWhen: [Condition.smallerThan(name: DESKTOP)],
+                  child: Image.asset('assets/images/logo.png')),
+            ),
+            ResponsiveRowColumnItem(
+              rowFlex: 1,
+              rowOrder: 2,
+              columnOrder: 2,
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () {
+                    launch('https://behance.net/joaotrld');
+                  },
+                  child: Text(
+                      'Designed with ${Emojis.redHeart} by | behance.net/joaotrld',
+                      style: Theme.of(context).textTheme.overline),
+                ),
               ),
             ),
-            Row(
-              children: [
-                MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                        onTap: () =>
-                            launch('https://www.linkedin.com/groups/12586571/'),
-                        child:
-                            Icon(MeetupIcons.linkedin, color: Colors.white))),
-                const SizedBox(width: MeetupSpacing.medium),
-                MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                        onTap: () =>
-                            launch('https://www.instagram.com/flutterrp/'),
-                        child:
-                            Icon(MeetupIcons.instagram, color: Colors.white))),
-                const SizedBox(width: MeetupSpacing.medium),
-                MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                        onTap: () => launch(
-                            'https://www.youtube.com/channel/UC0X1kB62Khvp2USm4X5zlVw'),
-                        child: Icon(MeetupIcons.youtube, color: Colors.white))),
-              ],
+            ResponsiveRowColumnItem(
+              rowFlex: 1,
+              rowOrder: 3,
+              columnOrder: 1,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ClickWidget(
+                      onTap: () =>
+                          launch('https://www.linkedin.com/groups/12586571/'),
+                      child: Icon(MeetupIcons.linkedin, color: Colors.white)),
+                  const SizedBox(width: MeetupSpacing.medium),
+                  ClickWidget(
+                      onTap: () =>
+                          launch('https://www.instagram.com/flutterrp/'),
+                      child: Icon(MeetupIcons.instagram, color: Colors.white)),
+                  const SizedBox(width: MeetupSpacing.medium),
+                  ClickWidget(
+                      onTap: () => launch(
+                          'https://www.youtube.com/channel/UC0X1kB62Khvp2USm4X5zlVw'),
+                      child: Icon(MeetupIcons.youtube, color: Colors.white)),
+                ],
+              ),
             ),
           ],
         ),
