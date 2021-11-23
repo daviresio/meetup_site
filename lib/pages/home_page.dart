@@ -196,6 +196,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           children: [
             Image.asset('assets/images/logo.png'),
             ResponsiveVisibility(
+              visible: false,
+              visibleWhen: [Condition.smallerThan(name: TABLET)],
+              child: ClickWidget(
+                onTap: () {},
+                child: Icon(MeetupIcons.bars_light, color: MeetupColors.white),
+              ),
+            ),
+            ResponsiveVisibility(
               visible: true,
               hiddenWhen: [Condition.smallerThan(name: TABLET)],
               child: Row(
@@ -207,14 +215,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   MeetupPrimaryButton(
                       label: 'Faça sua inscrição', onPressed: () {}),
                 ],
-              ),
-            ),
-            ResponsiveVisibility(
-              visible: false,
-              visibleWhen: [Condition.smallerThan(name: TABLET)],
-              child: ClickWidget(
-                onTap: () {},
-                child: Icon(MeetupIcons.bars_light, color: MeetupColors.white),
               ),
             ),
           ],
@@ -709,70 +709,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ],
                     ),
                   ),
-                  child: FittedBox(
-                    child: Padding(
-                      padding: const EdgeInsets.all(MeetupSpacing.big3),
-                      child: FormBuilder(
-                        key: _formKey,
-                        child: Material(
-                          color: Colors.transparent,
-                          child: SizedBox(
-                            width: 480,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Não perca tempo,',
-                                    style:
-                                        Theme.of(context).textTheme.headline2),
-                                Text('inscreva-se',
-                                    style:
-                                        Theme.of(context).textTheme.headline2),
-                                const SizedBox(height: MeetupSpacing.large),
-                                Row(
-                                  children: [
-                                    Flexible(
-                                      child: MeetupTextField(
-                                          name: 'name', label: 'Nome*'),
-                                    ),
-                                    const SizedBox(width: MeetupSpacing.small),
-                                    Flexible(
-                                      child: MeetupTextField(
-                                          name: 'phone', label: 'Telefone*'),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: MeetupSpacing.small),
-                                MeetupTextField(
-                                    name: 'email', label: 'E-mail*'),
-                                const SizedBox(height: MeetupSpacing.small),
-                                Row(
-                                  children: [
-                                    Flexible(
-                                      child: MeetupTextField(
-                                          name: 'company', label: 'Empresa'),
-                                    ),
-                                    const SizedBox(width: MeetupSpacing.small),
-                                    Flexible(
-                                      child: MeetupTextField(
-                                          name: 'job',
-                                          label: 'Área de atuação'),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: MeetupSpacing.small),
-                                SizedBox(
-                                  width: double.maxFinite,
-                                  child: MeetupSecundaryButton(
-                                      label: 'Inscreva-se', onPressed: () {}),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
                 ),
               ),
               Align(
@@ -784,6 +720,70 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ),
                       child: Image.asset(
                           'assets/images/squares_and_circles.png'))),
+              Positioned(
+                right: 0,
+                bottom: 100,
+                child: FittedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.all(MeetupSpacing.big3),
+                    child: FormBuilder(
+                      key: _formKey,
+                      child: Material(
+                        color: Colors.transparent,
+                        child: SizedBox(
+                          width: 480,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Não perca tempo,',
+                                  style: Theme.of(context).textTheme.headline2),
+                              Text('inscreva-se',
+                                  style: Theme.of(context).textTheme.headline2),
+                              const SizedBox(height: MeetupSpacing.large),
+                              Row(
+                                children: [
+                                  Flexible(
+                                    child: MeetupTextField(
+                                        name: 'name', label: 'Nome*'),
+                                  ),
+                                  const SizedBox(width: MeetupSpacing.small),
+                                  Flexible(
+                                    child: MeetupTextField(
+                                        name: 'phone', label: 'Telefone*'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: MeetupSpacing.small),
+                              MeetupTextField(name: 'email', label: 'E-mail*'),
+                              const SizedBox(height: MeetupSpacing.small),
+                              Row(
+                                children: [
+                                  Flexible(
+                                    child: MeetupTextField(
+                                        name: 'company', label: 'Empresa'),
+                                  ),
+                                  const SizedBox(width: MeetupSpacing.small),
+                                  Flexible(
+                                    child: MeetupTextField(
+                                        name: 'job', label: 'Área de atuação'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: MeetupSpacing.small),
+                              SizedBox(
+                                width: double.maxFinite,
+                                child: MeetupSecundaryButton(
+                                    label: 'Inscreva-se', onPressed: () {}),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               ResponsiveVisibility(
                 visible: true,
                 hiddenWhen: [Condition.smallerThan(name: DESKTOP)],
@@ -801,6 +801,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                 ),
               ),
+              const SizedBox(height: 600),
             ],
           ),
         ),
