@@ -165,7 +165,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           _header,
           const SizedBox(height: MeetupSpacing.huge2),
           _banner,
-          const SizedBox(height: MeetupSpacing.huge1),
+          SizedBox(
+            height: ResponsiveValue(
+              context,
+              defaultValue: MeetupSpacing.huge1,
+              valueWhen: const [
+                Condition.smallerThan(
+                    name: DESKTOP, value: MeetupSpacing.large),
+              ],
+            ).value,
+          ),
           _ourComunity,
           const SizedBox(height: MeetupSpacing.huge3),
           _eventTopics,
@@ -514,9 +523,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               visibleWhen: [
                                 Condition.smallerThan(name: DESKTOP)
                               ],
-                              child: Text(
-                                'Nossos palestrantes',
-                                style: Theme.of(context).textTheme.headline1,
+                              child: Center(
+                                child: Text(
+                                  'Nossos palestrantes',
+                                  style: Theme.of(context).textTheme.headline1,
+                                ),
                               )),
                           const SizedBox(height: MeetupSpacing.large),
                           Text(
