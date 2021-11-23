@@ -24,4 +24,6 @@ class MeetupIcons {
   static const IconData youtube = IconData(0xe8a7, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData instagram = IconData(0xe8a8, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData linkedin = IconData(0xe8a9, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData times_light = IconData(0xe8aa, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData bars_light = IconData(0xe8ab, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

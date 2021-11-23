@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meetup_site/helpers/meetup_colors.dart';
 import 'package:meetup_site/pages/home_page.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         textTheme: TextTheme(
           headline1: TextStyle(
             fontFamily: 'Nominee',
-            fontSize: 48.0,
+            fontSize: 48,
             fontWeight: FontWeight.w700,
             letterSpacing: -0.2,
             height: 1.02,
@@ -91,6 +92,14 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: HomePage(),
+      builder: (context, widget) => ResponsiveWrapper.builder(
+          ClampingScrollWrapper.builder(context, widget!),
+          breakpoints: [
+            ResponsiveBreakpoint.resize(100, name: "INITAL", scaleFactor: 0.6),
+            ResponsiveBreakpoint.resize(460, name: MOBILE, scaleFactor: 0.8),
+            ResponsiveBreakpoint.resize(800, name: TABLET, scaleFactor: 0.8),
+            ResponsiveBreakpoint.resize(1100, name: DESKTOP, scaleFactor: 1),
+          ]),
     );
   }
 }

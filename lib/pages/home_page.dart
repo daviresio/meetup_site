@@ -14,6 +14,7 @@ import 'package:meetup_site/components/meetup_text_field.dart';
 import 'package:meetup_site/helpers/meetup_colors.dart';
 import 'package:meetup_site/helpers/meetup_icons.dart';
 import 'package:meetup_site/helpers/meetup_spacing.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
@@ -47,12 +48,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     _animationBannerController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 300),
     );
 
     _animationOurCommunityController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 300),
     );
 
     _animationBannerValue = Tween<double>(
@@ -99,6 +100,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    print('BUILDADO!');
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       if (blurCircles.isNotEmpty) {
         return;
@@ -183,106 +185,125 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Image.asset('assets/images/logo.png'),
-            Row(
-              children: [
-                MeetupTextButton(label: 'Nossa comunidade', onPressed: () {}),
-                MeetupTextButton(label: 'O Evento', onPressed: () {}),
-                MeetupTextButton(label: 'Palestrantes', onPressed: () {}),
-                const SizedBox(width: MeetupSpacing.small),
-                MeetupPrimaryButton(
-                    label: 'Faça sua inscrição', onPressed: () {}),
-              ],
-            ),
-          ],
-        ),
-      );
-
-  Widget get _banner => Padding(
-        padding: const EdgeInsets.only(
-          left: MeetupSpacing.big1,
-          right: MeetupSpacing.big1,
-        ),
-        child: Row(
-          key: _bannerKey,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            ResponsiveVisibility(
+              visible: true,
+              hiddenWhen: [Condition.smallerThan(name: TABLET)],
+              child: Row(
                 children: [
-                  Text(
-                    '13/12 ÀS 19H',
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                  const SizedBox(height: MeetupSpacing.tiny),
-                  Text(
-                    'VENHA',
-                    style: Theme.of(context).textTheme.headline1,
-                  ),
-                  Text(
-                    'DECOLAR SEUS',
-                    style: Theme.of(context).textTheme.headline1,
-                  ),
-                  Text(
-                    'CONHECIMENTOS',
-                    style: Theme.of(context).textTheme.headline1,
-                  ),
-                  const SizedBox(height: MeetupSpacing.tiny),
-                  Text(
-                    'Crie network e aprenda em um ambiente colaborativo. Com reuniões mensais nos melhores espaços de inovação em Ribeirão Preto.',
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  const SizedBox(height: MeetupSpacing.large),
+                  MeetupTextButton(label: 'Nossa comunidade', onPressed: () {}),
+                  MeetupTextButton(label: 'O Evento', onPressed: () {}),
+                  MeetupTextButton(label: 'Palestrantes', onPressed: () {}),
+                  const SizedBox(width: MeetupSpacing.small),
                   MeetupPrimaryButton(
-                    label: 'Inscreva-se',
-                    onPressed: () {},
-                  ),
-                  const SizedBox(height: MeetupSpacing.huge2),
+                      label: 'Faça sua inscrição', onPressed: () {}),
                 ],
               ),
             ),
-            const SizedBox(width: MeetupSpacing.small),
-            MouseRegion(
-              onHover: (event) {
-                _animationBannerController.forward();
-              },
-              onExit: (event) {
-                _animationBannerController.reverse();
-              },
-              child: AnimatedBuilder(
-                animation: _animationBannerController,
-                builder: (context, child) => Transform(
-                  transform: Matrix4.identity()
-                    ..setEntry(3, 2, 0.001)
-                    ..rotateY(_animationBannerValue.value)
-                    ..scale(1 + _animationBannerValue.value)
-                    ..translate(_animationBannerValue.value * 100, 0),
-                  alignment: Alignment.centerRight,
-                  child: Image.asset('assets/images/banner.png'),
-                ),
-              ),
-            ),
           ],
         ),
       );
 
-  Widget get _ourComunity => Padding(
-        padding: const EdgeInsets.only(
-          left: MeetupSpacing.big1,
-          right: MeetupSpacing.big1,
+  Widget get _banner => MouseRegion(
+        onHover: (event) {
+          _animationBannerController.forward();
+        },
+        onExit: (event) {
+          _animationBannerController.reverse();
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: MeetupSpacing.big1,
+            right: MeetupSpacing.big1,
+          ),
+          child: ResponsiveRowColumn(
+            key: _bannerKey,
+            rowSpacing: MeetupSpacing.small,
+            columnSpacing: MeetupSpacing.large,
+            rowMainAxisAlignment: MainAxisAlignment.spaceBetween,
+            layout: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                ? ResponsiveRowColumnType.COLUMN
+                : ResponsiveRowColumnType.ROW,
+            children: [
+              ResponsiveRowColumnItem(
+                rowFlex: 1,
+                rowOrder: 1,
+                columnOrder: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '13/12 ÀS 19H',
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                    const SizedBox(height: MeetupSpacing.tiny),
+                    Text(
+                      'VENHA',
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                    Text(
+                      'DECOLAR SEUS',
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                    Text(
+                      'CONHECIMENTOS',
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                    const SizedBox(height: MeetupSpacing.tiny),
+                    ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: 800),
+                      child: Text(
+                        'Crie network e aprenda em um ambiente colaborativo. Com reuniões mensais nos melhores espaços de inovação em Ribeirão Preto.',
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                    ),
+                    const SizedBox(height: MeetupSpacing.large),
+                    MeetupPrimaryButton(
+                      label: 'Inscreva-se',
+                      onPressed: () {},
+                    ),
+                    const SizedBox(height: MeetupSpacing.huge2),
+                  ],
+                ),
+              ),
+              ResponsiveRowColumnItem(
+                rowFlex: 1,
+                rowOrder: 2,
+                columnOrder: 1,
+                child: AnimatedBuilder(
+                  animation: _animationBannerController,
+                  builder: (context, child) => Transform(
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, 0.001)
+                      ..rotateY(_animationBannerValue.value)
+                      ..scale(1 + _animationBannerValue.value)
+                      ..translate(_animationBannerValue.value * 100, 0),
+                    alignment: Alignment.centerRight,
+                    child: Image.asset('assets/images/banner.png'),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-        child: Row(
-          key: _ourComunityKey,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            MouseRegion(
-              onHover: (event) {
-                _animationOurCommunityController.forward();
-              },
-              onExit: (event) {
-                _animationOurCommunityController.reverse();
-              },
-              child: AnimatedBuilder(
+      );
+
+  Widget get _ourComunity => MouseRegion(
+        onHover: (event) {
+          _animationOurCommunityController.forward();
+        },
+        onExit: (event) {
+          _animationOurCommunityController.reverse();
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: MeetupSpacing.big1,
+            right: MeetupSpacing.big1,
+          ),
+          child: Row(
+            key: _ourComunityKey,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              AnimatedBuilder(
                 animation: _animationOurCommunityController,
                 builder: (context, child) => Transform(
                   transform: Matrix4.identity()
@@ -294,32 +315,32 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   child: Image.asset('assets/images/our_community.png'),
                 ),
               ),
-            ),
-            const SizedBox(width: MeetupSpacing.big3),
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Nossa comunidade',
-                    style: Theme.of(context).textTheme.headline1,
-                  ),
-                  const SizedBox(height: MeetupSpacing.large),
-                  Text(
-                    'O meetup é formado pela comunidade e para a comunidade. Qualquer um é bem vindo para contribuir, seja você iniciante ou experiente, sempre tem uma forma de contribuir.',
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  const SizedBox(height: MeetupSpacing.medium),
-                  Text(
-                    'Com reuniões mensais, é o lugar ideal para estar por dentro do flutter, além de conhecer o trabalho dos devs flutter da região de Ribeirão Preto.',
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                ],
+              const SizedBox(width: MeetupSpacing.big3),
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Nossa comunidade',
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                    const SizedBox(height: MeetupSpacing.large),
+                    Text(
+                      'O meetup é formado pela comunidade e para a comunidade. Qualquer um é bem vindo para contribuir, seja você iniciante ou experiente, sempre tem uma forma de contribuir.',
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    const SizedBox(height: MeetupSpacing.medium),
+                    Text(
+                      'Com reuniões mensais, é o lugar ideal para estar por dentro do flutter, além de conhecer o trabalho dos devs flutter da região de Ribeirão Preto.',
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
 
@@ -363,11 +384,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         _eventDescriptionItem(
                             'Evento no espaço de inovação Bild Labs'),
                         SizedBox(width: MeetupSpacing.big1),
-                        _eventDescriptionItem(
-                            'Palestra sobre arquitetar apps flutter'),
+                        _eventDescriptionItem('Arquitetando apps flutter'),
                         SizedBox(width: MeetupSpacing.big1),
                         _eventDescriptionItem(
-                            'Palestra sobre UI da vida real com CustomPainter'),
+                            'UI\'s fora da curva com CustomPainter'),
                         SizedBox(width: MeetupSpacing.big1),
                         _eventDescriptionItem(
                             'Aproveite para fazer bastante network'),
