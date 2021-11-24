@@ -5,8 +5,13 @@ import 'package:meetup_site/helpers/meetup_colors.dart';
 class MeetupTextField extends StatelessWidget {
   final String name;
   final String label;
+  final FormFieldValidator? validator;
 
-  const MeetupTextField({required this.name, required this.label});
+  const MeetupTextField({
+    required this.name,
+    required this.label,
+    this.validator,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +39,7 @@ class MeetupTextField extends StatelessWidget {
           ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 12),
         ),
+        validator: validator,
       ),
     );
   }

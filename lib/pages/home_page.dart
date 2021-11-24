@@ -5,6 +5,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:meetup_site/components/blur_circle.dart';
 import 'package:meetup_site/components/click_widget.dart';
 import 'package:meetup_site/components/meetup_primary_button.dart';
@@ -143,16 +144,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         physics: ClampingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(
-              child: Center(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 1280),
               child: Stack(
-                children: [
-                  ...blurCircles,
-                  _content,
-                ],
-              ),
-            ),
+            children: [
+              ...blurCircles,
+              Center(
+                  child: ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: 1280),
+                      child: _content)),
+            ],
           )),
         ],
       ),
@@ -745,17 +744,36 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 children: [
                                   Flexible(
                                     child: MeetupTextField(
-                                        name: 'name', label: 'Nome*'),
+                                      name: 'name',
+                                      label: 'Nome*',
+                                      validator: FormBuilderValidators.compose([
+                                        FormBuilderValidators.required(
+                                          context,
+                                          errorText: 'Campo obrigatório',
+                                        ),
+                                      ]),
+                                    ),
                                   ),
                                   const SizedBox(width: MeetupSpacing.small),
                                   Flexible(
                                     child: MeetupTextField(
-                                        name: 'phone', label: 'Telefone*'),
+                                      name: 'phone',
+                                      label: 'Telefone*',
+                                    ),
                                   ),
                                 ],
                               ),
                               const SizedBox(height: MeetupSpacing.small),
-                              MeetupTextField(name: 'email', label: 'E-mail*'),
+                              MeetupTextField(
+                                name: 'email',
+                                label: 'E-mail*',
+                                validator: FormBuilderValidators.compose([
+                                  FormBuilderValidators.required(
+                                    context,
+                                    errorText: 'Campo obrigatório',
+                                  ),
+                                ]),
+                              ),
                               const SizedBox(height: MeetupSpacing.small),
                               Row(
                                 children: [
@@ -774,7 +792,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               SizedBox(
                                 width: double.maxFinite,
                                 child: MeetupSecundaryButton(
-                                    label: 'Inscreva-se', onPressed: () {}),
+                                  label: 'Inscreva-se',
+                                  onPressed: () {
+                                    _formKey.currentState?.save();
+                                    if (_formKey.currentState?.validate() ??
+                                        false) {
+                                      print(_formKey.currentState?.value);
+                                    } else {
+                                      print("validation failed");
+                                    }
+                                  },
+                                ),
                               ),
                             ],
                           ),
