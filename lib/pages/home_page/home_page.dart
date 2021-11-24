@@ -9,6 +9,7 @@ import 'package:meetup_site/pages/home_page/components/event_topics_widget.dart'
 import 'package:meetup_site/pages/home_page/components/footer_widget.dart';
 import 'package:meetup_site/pages/home_page/components/header_widget.dart';
 import 'package:meetup_site/pages/home_page/components/our_community_widget.dart';
+import 'package:meetup_site/pages/home_page/components/partners_widget.dart';
 import 'package:meetup_site/pages/home_page/components/register_widget.dart';
 import 'package:meetup_site/pages/home_page/components/speakers_widget.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -102,9 +103,10 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> get _content => [
         const SizedBox(height: MeetupSpacing.large),
-        HeaderWidget(),
+        const HeaderWidget(),
         const SizedBox(height: MeetupSpacing.huge2),
         BannerWidget(key: _bannerKey),
+        const SizedBox(height: MeetupSpacing.big3),
         OurCommunityWidget(key: _ourComunityKey),
         SizedBox(
           height: ResponsiveValue(
@@ -116,11 +118,12 @@ class _HomePageState extends State<HomePage> {
           ).value,
         ),
         const SizedBox(height: MeetupSpacing.huge3),
-        EventTopicsWidget(),
+        const EventTopicsWidget(),
         SpeakersWidget(key: _speakersKey),
-        RegisterWidget(),
+        const RegisterWidget(),
+        const PartnersWidget(),
         const SizedBox(height: MeetupSpacing.huge2),
-        FooterWidget(),
+        const FooterWidget(),
         const SizedBox(height: MeetupSpacing.big3),
       ];
 }

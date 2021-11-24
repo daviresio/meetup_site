@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:meetup_site/components/meetup_primary_button.dart';
+import 'package:meetup_site/helpers/meetup_colors.dart';
+import 'package:meetup_site/helpers/meetup_icons.dart';
 import 'package:meetup_site/helpers/meetup_spacing.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -81,12 +82,51 @@ class _BannerWidgetState extends State<BannerWidget>
                     constraints: BoxConstraints(maxWidth: 800),
                     child: Text(
                         'Crie network e aprenda em um ambiente colaborativo. Com reuniões mensais nos melhores espaços de inovação em Ribeirão Preto.',
-                        style: Theme.of(context).textTheme.bodyText1),
+                        style: Theme.of(context).textTheme.subtitle2),
                   ),
-                  const SizedBox(height: MeetupSpacing.large),
-                  MeetupPrimaryButton(
-                    label: 'Inscreva-se',
-                    onPressed: () {},
+                  const SizedBox(height: MeetupSpacing.small),
+                  FittedBox(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          MeetupIcons.building,
+                          size: 42,
+                          color: MeetupColors.white,
+                        ),
+                        const SizedBox(width: MeetupSpacing.tiny),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 40),
+                            Text(
+                              'Labs de inovação | Grupo Bild & Vitta',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline3!
+                                  .merge(TextStyle(color: MeetupColors.blue)),
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Remoto, através do Youtube',
+                                  style: Theme.of(context).textTheme.subtitle2,
+                                ),
+                                const SizedBox(width: MeetupSpacing.tiny),
+                                Icon(
+                                  MeetupIcons.youtube,
+                                  size: 12,
+                                  color: MeetupColors.white,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: MeetupSpacing.huge2),
                 ],
