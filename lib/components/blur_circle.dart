@@ -34,19 +34,22 @@ class BlurCircle extends StatelessWidget {
       left: side == BlurCircleSide.left ? -450 : null,
       top: positionY,
       right: side == BlurCircleSide.right ? -450 : null,
-      child: Container(
-        width: 660,
-        height: 660,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(MeetupRadius.circular),
-          boxShadow: [
-            BoxShadow(
-              color: colors[color]!,
-              blurRadius: 500,
-              spreadRadius: -10,
-              offset: Offset(0, 0),
-            ),
-          ],
+      child: IgnorePointer(
+        ignoring: true,
+        child: Container(
+          width: 660,
+          height: 660,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(MeetupRadius.circular),
+            boxShadow: [
+              BoxShadow(
+                color: colors[color]!,
+                blurRadius: 500,
+                spreadRadius: -10,
+                offset: Offset(0, 0),
+              ),
+            ],
+          ),
         ),
       ),
     );

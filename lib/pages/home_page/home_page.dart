@@ -90,6 +90,7 @@ class _HomePageState extends State<HomePage> {
                       constraints: BoxConstraints(maxWidth: 1280),
                       child: ListView(
                         shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
                         children: _content,
                       ))),
             ],
