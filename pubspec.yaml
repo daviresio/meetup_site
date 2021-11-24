@@ -69,13 +69,13 @@ flutter:
   fonts:
     - family: Nominee
       fonts:
-        - asset: assets/fonts/Nominee-Thin.ttf
+        - asset: assets/fonts/Nominee-ThinExtended.ttf
           weight: 100
-        - asset: assets/fonts/Nominee-Light.ttf
+        - asset: assets/fonts/Nominee-LightExtended.ttf
           weight: 300
-        - asset: assets/fonts/Nominee-Medium.ttf
+        - asset: assets/fonts/Nominee-MediumExtended.ttf
           weight: 500
-        - asset: assets/fonts/Nominee-Bold.ttf
+        - asset: assets/fonts/Nominee-BoldExtended.ttf
           weight: 700
     - family: Inter
       fonts:
