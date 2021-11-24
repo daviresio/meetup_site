@@ -1,4 +1,9 @@
+import 'dart:typed_data';
+
+import 'package:emojis/emojis.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:meetup_site/components/meetup_primary_button.dart';
 import 'package:meetup_site/components/meetup_radius.dart';
 import 'package:meetup_site/helpers/meetup_colors.dart';
@@ -18,8 +23,8 @@ class PartnersWidget extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-            bottom: 100,
-            left: MediaQuery.of(context).size.width / 2 - 200,
+            bottom: 50,
+            left: MediaQuery.of(context).size.width / 2 - 150,
             child: Container(
               width: 425,
               height: 425,
@@ -86,16 +91,16 @@ class PartnersWidget extends StatelessWidget {
                               ),
                             )),
                         const SizedBox(height: MeetupSpacing.large),
-                        Text(
-                          'Escerver sobre a Bild aqui.',
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        const SizedBox(height: MeetupSpacing.medium),
-                        Text(
-                          'Escrever sobre a Dryve aqui.',
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        const SizedBox(height: MeetupSpacing.medium),
+                        // Text(
+                        //   'Escerver sobre a Bild aqui.',
+                        //   style: Theme.of(context).textTheme.bodyText1,
+                        // ),
+                        // const SizedBox(height: MeetupSpacing.medium),
+                        // Text(
+                        //   'Escrever sobre a Dryve aqui.',
+                        //   style: Theme.of(context).textTheme.bodyText1,
+                        // ),
+                        // const SizedBox(height: MeetupSpacing.medium),
                         Text(
                           'As empresas patrocinadoras estão contratando em varias areas! envie agora mesmo seu curriculo e venha trabalhar nas empresas mais inovadoras da região!',
                           style: Theme.of(context).textTheme.bodyText1,
@@ -103,7 +108,27 @@ class PartnersWidget extends StatelessWidget {
                         const SizedBox(height: MeetupSpacing.small),
                         MeetupPrimaryButton(
                           label: 'Cadastre-se no banco de talentos',
-                          onPressed: () {},
+                          onPressed: () async {
+                            FilePickerResult? result = await FilePicker.platform
+                                .pickFiles(allowMultiple: false);
+
+                            if (result != null &&
+                                result.files.first.bytes != null) {
+                              Uint8List fileBytes = result.files.first.bytes!;
+                              String fileName = result.files.first.name;
+
+                              Fluttertoast.showToast(
+                                msg:
+                                    "Curriculo enviado com sucesso! estamos torcendo por você ${Emojis.huggingFace}",
+                                toastLength: Toast.LENGTH_LONG,
+                                gravity: ToastGravity.TOP,
+                                timeInSecForIosWeb: 5,
+                                backgroundColor: MeetupColors.blue,
+                                textColor: MeetupColors.white,
+                                fontSize: 16.0,
+                              );
+                            }
+                          },
                         ),
                       ],
                     ),

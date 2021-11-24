@@ -13,6 +13,7 @@ import 'package:meetup_site/pages/home_page/components/partners_widget.dart';
 import 'package:meetup_site/pages/home_page/components/register_widget.dart';
 import 'package:meetup_site/pages/home_page/components/speakers_widget.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,6 +23,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final ItemScrollController itemScrollController = ItemScrollController();
+  // final ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
+
   final _bannerKey = GlobalKey();
   final _ourComunityKey = GlobalKey();
   final _speakersKey = GlobalKey();
@@ -41,7 +45,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print('BUILDADO!');
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       if (blurCircles.isNotEmpty) {
         return;
@@ -69,7 +72,7 @@ class _HomePageState extends State<HomePage> {
             color: BlurCircleColor.blue,
           ),
           BlurCircle(
-            positionY: speakersY + 500,
+            positionY: bannerY + 900,
             side: BlurCircleSide.left,
             color: BlurCircleColor.purple,
           ),
@@ -79,23 +82,26 @@ class _HomePageState extends State<HomePage> {
 
     return Container(
       color: MeetupColors.black,
-      child: CustomScrollView(
-        physics: ClampingScrollPhysics(),
-        slivers: [
-          SliverToBoxAdapter(
-              child: Stack(
-            children: [
-              ...blurCircles,
-              Center(
-                  child: ConstrainedBox(
-                      constraints: BoxConstraints(maxWidth: 1280),
-                      child: ListView(
-                        shrinkWrap: true,
-                        physics: ClampingScrollPhysics(),
-                        children: _content,
-                      ))),
-            ],
-          )),
+      child: Stack(
+        children: [
+          ListView(
+            shrinkWrap: true,
+            physics: ClampingScrollPhysics(),
+            children: blurCircles,
+          ),
+          Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 1280),
+              child: ScrollablePositionedList.builder(
+                itemCount: _content.length,
+                itemBuilder: (context, index) => _content[index],
+                itemScrollController: itemScrollController,
+                // itemPositionsListener: itemPositionsListener,
+                shrinkWrap: true,
+                physics: ClampingScrollPhysics(),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -103,7 +109,21 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> get _content => [
         const SizedBox(height: MeetupSpacing.large),
-        const HeaderWidget(),
+        HeaderWidget(
+          scrollToElement: (index) async {
+            print('antes');
+
+            try {
+              await itemScrollController.scrollTo(
+                  index: index, duration: const Duration(milliseconds: 500));
+              // itemScrollController.jumpTo(index: index);
+            } catch (e) {
+              print(e);
+            }
+
+            print('depois');
+          },
+        ),
         const SizedBox(height: MeetupSpacing.huge2),
         BannerWidget(key: _bannerKey),
         const SizedBox(height: MeetupSpacing.big3),
@@ -117,7 +137,6 @@ class _HomePageState extends State<HomePage> {
             ],
           ).value,
         ),
-        const SizedBox(height: MeetupSpacing.huge3),
         const EventTopicsWidget(),
         SpeakersWidget(key: _speakersKey),
         const RegisterWidget(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:meetup_site/components/meetup_secundary_button.dart';
 import 'package:meetup_site/components/meetup_text_field.dart';
 import 'package:meetup_site/helpers/meetup_colors.dart';
@@ -16,6 +17,9 @@ class RegisterWidget extends StatefulWidget {
 
 class _RegisterWidgetState extends State<RegisterWidget> {
   final _formKey = GlobalKey<FormBuilderState>();
+
+  final phoneInputFormatter = MaskTextInputFormatter(
+      mask: '(##) #####-####', filter: {"#": RegExp(r'[0-9]')});
 
   @override
   Widget build(BuildContext context) {
@@ -62,90 +66,101 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                         Image.asset('assets/images/squares_and_circles.png'))),
             Positioned(
               right: 0,
-              top: 80,
-              child: FittedBox(
-                child: Padding(
-                  padding: const EdgeInsets.all(MeetupSpacing.big3),
-                  child: FormBuilder(
-                    key: _formKey,
-                    child: Material(
-                      color: Colors.transparent,
-                      child: SizedBox(
-                        width: 480,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Não perca tempo,',
-                                style: Theme.of(context).textTheme.headline2),
-                            Text('inscreva-se',
-                                style: Theme.of(context).textTheme.headline2),
-                            const SizedBox(height: MeetupSpacing.large),
-                            Row(
-                              children: [
-                                Flexible(
-                                  child: MeetupTextField(
-                                    name: 'name',
-                                    label: 'Nome*',
-                                    validator: FormBuilderValidators.compose([
-                                      FormBuilderValidators.required(
-                                        context,
-                                        errorText: 'Campo obrigatório',
-                                      ),
-                                    ]),
+              top: 50,
+              child: SizedBox(
+                width: 550,
+                height: 450,
+                child: FittedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.all(MeetupSpacing.big3),
+                    child: FormBuilder(
+                      key: _formKey,
+                      child: Material(
+                        color: Colors.transparent,
+                        child: SizedBox(
+                          width: 480,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Não perca tempo,',
+                                  style: Theme.of(context).textTheme.headline2),
+                              Text('inscreva-se',
+                                  style: Theme.of(context).textTheme.headline2),
+                              const SizedBox(height: MeetupSpacing.large),
+                              Row(
+                                children: [
+                                  Flexible(
+                                    child: MeetupTextField(
+                                      name: 'name',
+                                      label: 'Nome*',
+                                      validator: FormBuilderValidators.compose([
+                                        FormBuilderValidators.required(
+                                          context,
+                                          errorText: 'Campo obrigatório',
+                                        ),
+                                      ]),
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(width: MeetupSpacing.small),
-                                Flexible(
-                                  child: MeetupTextField(
-                                    name: 'phone',
-                                    label: 'Telefone*',
+                                  const SizedBox(width: MeetupSpacing.small),
+                                  Flexible(
+                                    child: MeetupTextField(
+                                      name: 'phone',
+                                      label: 'Telefone*',
+                                      inputFormatters: [phoneInputFormatter],
+                                      validator: FormBuilderValidators.compose([
+                                        FormBuilderValidators.required(
+                                          context,
+                                          errorText: 'Campo obrigatório',
+                                        ),
+                                      ]),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: MeetupSpacing.small),
-                            MeetupTextField(
-                              name: 'email',
-                              label: 'E-mail*',
-                              validator: FormBuilderValidators.compose([
-                                FormBuilderValidators.required(
-                                  context,
-                                  errorText: 'Campo obrigatório',
-                                ),
-                              ]),
-                            ),
-                            const SizedBox(height: MeetupSpacing.small),
-                            Row(
-                              children: [
-                                Flexible(
-                                  child: MeetupTextField(
-                                      name: 'company', label: 'Empresa'),
-                                ),
-                                const SizedBox(width: MeetupSpacing.small),
-                                Flexible(
-                                  child: MeetupTextField(
-                                      name: 'job', label: 'Área de atuação'),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: MeetupSpacing.small),
-                            SizedBox(
-                              width: double.maxFinite,
-                              child: MeetupSecundaryButton(
-                                label: 'Inscreva-se',
-                                onPressed: () {
-                                  _formKey.currentState?.save();
-                                  if (_formKey.currentState?.validate() ??
-                                      false) {
-                                    print(_formKey.currentState?.value);
-                                  } else {
-                                    print("validation failed");
-                                  }
-                                },
+                                ],
                               ),
-                            ),
-                          ],
+                              const SizedBox(height: MeetupSpacing.small),
+                              MeetupTextField(
+                                name: 'email',
+                                label: 'E-mail*',
+                                validator: FormBuilderValidators.compose([
+                                  FormBuilderValidators.required(
+                                    context,
+                                    errorText: 'Campo obrigatório',
+                                  ),
+                                ]),
+                              ),
+                              const SizedBox(height: MeetupSpacing.small),
+                              Row(
+                                children: [
+                                  Flexible(
+                                    child: MeetupTextField(
+                                        name: 'company', label: 'Empresa'),
+                                  ),
+                                  const SizedBox(width: MeetupSpacing.small),
+                                  Flexible(
+                                    child: MeetupTextField(
+                                        name: 'job', label: 'Área de atuação'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: MeetupSpacing.small),
+                              SizedBox(
+                                width: double.maxFinite,
+                                child: MeetupSecundaryButton(
+                                  label: 'Inscreva-se',
+                                  onPressed: () {
+                                    _formKey.currentState?.save();
+                                    if (_formKey.currentState?.validate() ??
+                                        false) {
+                                      print(_formKey.currentState?.value);
+                                    } else {
+                                      print("validation failed");
+                                    }
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

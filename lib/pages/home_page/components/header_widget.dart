@@ -5,7 +5,10 @@ import 'package:meetup_site/helpers/meetup_spacing.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class HeaderWidget extends StatelessWidget {
-  const HeaderWidget({Key? key}) : super(key: key);
+  final void Function(int index) scrollToElement;
+
+  const HeaderWidget({required this.scrollToElement, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +34,32 @@ class HeaderWidget extends StatelessWidget {
             hiddenWhen: [Condition.smallerThan(name: TABLET)],
             child: Row(
               children: [
-                MeetupTextButton(label: 'Nossa comunidade', onPressed: () {}),
-                MeetupTextButton(label: 'O Evento', onPressed: () {}),
-                MeetupTextButton(label: 'Palestrantes', onPressed: () {}),
-                MeetupTextButton(label: 'Patrocinadores', onPressed: () {}),
+                MeetupTextButton(
+                    label: 'Nossa comunidade',
+                    onPressed: () {
+                      scrollToElement(1);
+                    }),
+                MeetupTextButton(
+                    label: 'O Evento',
+                    onPressed: () {
+                      scrollToElement(2);
+                    }),
+                MeetupTextButton(
+                    label: 'Palestrantes',
+                    onPressed: () {
+                      scrollToElement(3);
+                    }),
+                MeetupTextButton(
+                    label: 'Patrocinadores',
+                    onPressed: () {
+                      scrollToElement(4);
+                    }),
                 const SizedBox(width: MeetupSpacing.small),
                 MeetupPrimaryButton(
-                    label: 'Faça sua inscrição', onPressed: () {}),
+                    label: 'Faça sua inscrição',
+                    onPressed: () {
+                      scrollToElement(5);
+                    }),
               ],
             ),
           ),
