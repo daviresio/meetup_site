@@ -44,7 +44,7 @@ class MeetupTextField extends StatelessWidget {
         hoverColor: Colors.transparent,
         isDense: true,
         contentPadding:
-            const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
+            const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       ),
       validator: validator,
       inputFormatters: inputFormatters,

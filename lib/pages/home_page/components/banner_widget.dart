@@ -101,7 +101,7 @@ class _BannerWidgetState extends State<BannerWidget>
                           children: [
                             const SizedBox(height: 40),
                             Text(
-                              'Labs de inovação | Grupo Bild & Vitta',
+                              'Labs de Inovação | Bild & Vitta',
                               style: Theme.of(context)
                                   .textTheme
                                   .headline3!

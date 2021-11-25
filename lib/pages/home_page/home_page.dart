@@ -45,46 +45,22 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      if (blurCircles.isNotEmpty) {
-        return;
-      }
-
-      final bannerY = yWidgetPosition(_bannerKey);
-      final ourComunityY = yWidgetPosition(_ourComunityKey);
-      final speakersY = yWidgetPosition(_speakersKey);
-
-      setState(() {
-        blurCircles = [
-          BlurCircle(
-            positionY: bannerY,
-            side: BlurCircleSide.right,
-            color: BlurCircleColor.purple,
-          ),
-          BlurCircle(
-            positionY: ourComunityY + 200,
-            side: BlurCircleSide.left,
-            color: BlurCircleColor.blue,
-          ),
-          BlurCircle(
-            positionY: speakersY + 400,
-            side: BlurCircleSide.right,
-            color: BlurCircleColor.blue,
-          ),
-          BlurCircle(
-            positionY: speakersY + 600,
-            side: BlurCircleSide.left,
-            color: BlurCircleColor.purple,
-          ),
-        ];
-      });
-    });
-
     return Container(
       color: MeetupColors.black,
       child: Stack(
         children: [
-          ...blurCircles,
+          ...[
+            BlurCircle(
+              positionY: 50,
+              side: BlurCircleSide.right,
+              color: BlurCircleColor.purple,
+            ),
+            BlurCircle(
+              positionY: 350,
+              side: BlurCircleSide.left,
+              color: BlurCircleColor.blue,
+            ),
+          ],
           ScrollablePositionedList.builder(
             itemCount: _content.length,
             itemBuilder: (context, index) => Center(
@@ -109,7 +85,6 @@ class _HomePageState extends State<HomePage> {
             try {
               await itemScrollController.scrollTo(
                   index: index, duration: const Duration(milliseconds: 500));
-              // itemScrollController.jumpTo(index: index);
             } catch (e) {
               print(e);
             }

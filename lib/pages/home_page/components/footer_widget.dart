@@ -35,16 +35,13 @@ class FooterWidget extends StatelessWidget {
             rowFlex: 1,
             rowOrder: 2,
             columnOrder: 2,
-            child: MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: GestureDetector(
-                onTap: () {
-                  launch('https://behance.net/joaotrld');
-                },
-                child: Text(
-                    'Designed with ${Emojis.redHeart} by | behance.net/joaotrld',
-                    style: Theme.of(context).textTheme.overline),
-              ),
+            child: ClickWidget(
+              onTap: () {
+                launch('https://behance.net/joaotrld');
+              },
+              child: Text(
+                  'Designed with ${Emojis.redHeart} by | behance.net/joaotrld',
+                  style: Theme.of(context).textTheme.overline),
             ),
           ),
           ResponsiveRowColumnItem(

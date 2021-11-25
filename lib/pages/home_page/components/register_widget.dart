@@ -9,6 +9,7 @@ import 'package:meetup_site/components/meetup_secundary_button.dart';
 import 'package:meetup_site/components/meetup_text_field.dart';
 import 'package:meetup_site/helpers/meetup_colors.dart';
 import 'package:meetup_site/helpers/meetup_spacing.dart';
+import 'package:meetup_site/libraries/my_form_builder_radio_group.dart';
 import 'package:meetup_site/pages/home_page/home_controller.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -99,7 +100,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                               Row(
                                 children: [
                                   Flexible(
-                                      child: FormBuilderRadioGroup(
+                                      child: MyFormBuilderRadioGroup(
                                     name: 'event_type',
                                     wrapSpacing: MeetupSpacing.small,
                                     activeColor: Colors.black,
@@ -269,10 +270,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               child: Positioned(
                 top: 0,
                 right: 0,
-                child: Image.asset(
-                  'assets/images/not_loose_time.png',
-                  width: 200,
-                ),
+                child:
+                    Image.asset('assets/images/not_loose_time.png', width: 150),
               ),
             ),
             const SizedBox(height: 600),
