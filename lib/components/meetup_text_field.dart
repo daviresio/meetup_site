@@ -22,8 +22,8 @@ class MeetupTextField extends StatelessWidget {
       name: name,
       style: Theme.of(context)
           .textTheme
-          .button!
-          .merge(TextStyle(color: MeetupColors.gray1)),
+          .bodyText1!
+          .merge(TextStyle(color: Colors.black87)),
       decoration: InputDecoration(
         filled: true,
         fillColor: MeetupColors.white,
