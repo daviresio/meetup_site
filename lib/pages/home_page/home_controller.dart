@@ -23,7 +23,6 @@ class HomeController {
             }
           }));
 
-      print(response);
       return response.statusCode < 300;
     } catch (e) {
       print(e);
@@ -43,7 +42,6 @@ class HomeController {
         }),
       );
 
-      print(response);
       return response.statusCode! < 300;
     } catch (e) {
       print(e);
