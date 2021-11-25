@@ -7,11 +7,12 @@ import 'package:http/http.dart' as http;
 class HomeController {
   Future<bool> register(Map<String, dynamic> payload) async {
     try {
-      final url = Uri.parse('http://localhost:8080/api/v1/tickets');
+      final url = Uri.parse(
+          'https://daviresio-meetup-api-ygxhf.ondigitalocean.app/api/v1/tickets');
       final response = await http.post(url,
           headers: {'Content-Type': 'application/json'},
           body: json.encode({
-            'event_id': '14a25d95-152b-4949-8a51-22661316efd4',
+            'event_id': 'cc80c159-b5de-41e7-8441-bb30e904fd55',
             'event_type': payload['event_type'],
             'guest': {
               'name': payload['name'],
@@ -34,7 +35,7 @@ class HomeController {
     await Future.delayed(const Duration(seconds: 2));
     try {
       final response = await Dio().post(
-        'http://localhost:8080/api/v1/files',
+        'https://daviresio-meetup-api-ygxhf.ondigitalocean.app/api/v1/files',
         options: Options(headers: {"Content-Type": "multipart/form-data"}),
         data: FormData.fromMap({
           'file_name': fileName,
