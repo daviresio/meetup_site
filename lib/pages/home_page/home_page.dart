@@ -62,17 +62,17 @@ class _HomePageState extends State<HomePage> {
             color: BlurCircleColor.purple,
           ),
           BlurCircle(
-            positionY: ourComunityY + 100,
+            positionY: ourComunityY + 200,
             side: BlurCircleSide.left,
             color: BlurCircleColor.blue,
           ),
           BlurCircle(
-            positionY: speakersY + 200,
+            positionY: speakersY + 400,
             side: BlurCircleSide.right,
             color: BlurCircleColor.blue,
           ),
           BlurCircle(
-            positionY: bannerY + 900,
+            positionY: speakersY + 600,
             side: BlurCircleSide.left,
             color: BlurCircleColor.purple,
           ),
@@ -84,23 +84,18 @@ class _HomePageState extends State<HomePage> {
       color: MeetupColors.black,
       child: Stack(
         children: [
-          ListView(
+          ...blurCircles,
+          ScrollablePositionedList.builder(
+            itemCount: _content.length,
+            itemBuilder: (context, index) => Center(
+                child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 1280),
+              child: _content[index],
+            )),
+            itemScrollController: itemScrollController,
+            // itemPositionsListener: itemPositionsListener,
             shrinkWrap: true,
             physics: ClampingScrollPhysics(),
-            children: blurCircles,
-          ),
-          Center(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 1280),
-              child: ScrollablePositionedList.builder(
-                itemCount: _content.length,
-                itemBuilder: (context, index) => _content[index],
-                itemScrollController: itemScrollController,
-                // itemPositionsListener: itemPositionsListener,
-                shrinkWrap: true,
-                physics: ClampingScrollPhysics(),
-              ),
-            ),
           ),
         ],
       ),
@@ -111,8 +106,6 @@ class _HomePageState extends State<HomePage> {
         const SizedBox(height: MeetupSpacing.large),
         HeaderWidget(
           scrollToElement: (index) async {
-            print('antes');
-
             try {
               await itemScrollController.scrollTo(
                   index: index, duration: const Duration(milliseconds: 500));
@@ -120,8 +113,6 @@ class _HomePageState extends State<HomePage> {
             } catch (e) {
               print(e);
             }
-
-            print('depois');
           },
         ),
         const SizedBox(height: MeetupSpacing.huge2),

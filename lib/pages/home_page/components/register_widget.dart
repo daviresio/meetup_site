@@ -1,11 +1,15 @@
+import 'package:email_validator/email_validator.dart';
+import 'package:emojis/emojis.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:meetup_site/components/meetup_secundary_button.dart';
 import 'package:meetup_site/components/meetup_text_field.dart';
 import 'package:meetup_site/helpers/meetup_colors.dart';
 import 'package:meetup_site/helpers/meetup_spacing.dart';
+import 'package:meetup_site/pages/home_page/home_controller.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class RegisterWidget extends StatefulWidget {
@@ -17,6 +21,10 @@ class RegisterWidget extends StatefulWidget {
 
 class _RegisterWidgetState extends State<RegisterWidget> {
   final _formKey = GlobalKey<FormBuilderState>();
+
+  final _controller = HomeController();
+
+  var loading = false;
 
   final phoneInputFormatter = MaskTextInputFormatter(
       mask: '(##) #####-####', filter: {"#": RegExp(r'[0-9]')});
@@ -91,6 +99,44 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                               Row(
                                 children: [
                                   Flexible(
+                                      child: FormBuilderRadioGroup(
+                                    name: 'event_type',
+                                    wrapSpacing: MeetupSpacing.small,
+                                    activeColor: Colors.black,
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.zero,
+                                      isDense: true,
+                                      enabledBorder: InputBorder.none,
+                                    ),
+                                    validator: FormBuilderValidators.compose([
+                                      FormBuilderValidators.required(
+                                        context,
+                                        errorText: 'Campo obrigatório',
+                                      ),
+                                    ]),
+                                    options: [
+                                      FormBuilderFieldOption(
+                                        value: 'PRESENTIAL',
+                                        child: Container(
+                                          margin: EdgeInsets.only(top: 4),
+                                          child: Text(
+                                              'Presencial (Ribeirão Preto/SP)'),
+                                        ),
+                                      ),
+                                      FormBuilderFieldOption(
+                                        value: 'REMOTE',
+                                        child: Container(
+                                            margin: EdgeInsets.only(top: 4),
+                                            child: Text('Remoto')),
+                                      ),
+                                    ],
+                                  ))
+                                ],
+                              ),
+                              const SizedBox(height: MeetupSpacing.small),
+                              Row(
+                                children: [
+                                  Flexible(
                                     child: MeetupTextField(
                                       name: 'name',
                                       label: 'Nome*',
@@ -112,7 +158,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                         FormBuilderValidators.required(
                                           context,
                                           errorText: 'Campo obrigatório',
-                                        ),
+                                        )
                                       ]),
                                     ),
                                   ),
@@ -127,6 +173,15 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                     context,
                                     errorText: 'Campo obrigatório',
                                   ),
+                                  (value) {
+                                    print(value);
+
+                                    return EmailValidator.validate(
+                                      value.toString(),
+                                    )
+                                        ? null
+                                        : 'E-mail inválido';
+                                  },
                                 ]),
                               ),
                               const SizedBox(height: MeetupSpacing.small),
@@ -148,15 +203,50 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                 width: double.maxFinite,
                                 child: MeetupSecundaryButton(
                                   label: 'Inscreva-se',
-                                  onPressed: () {
-                                    _formKey.currentState?.save();
-                                    if (_formKey.currentState?.validate() ??
-                                        false) {
-                                      print(_formKey.currentState?.value);
-                                    } else {
-                                      print("validation failed");
-                                    }
-                                  },
+                                  onPressed: loading
+                                      ? null
+                                      : () async {
+                                          _formKey.currentState?.save();
+                                          if (!_formKey.currentState!
+                                              .validate()) {
+                                            return;
+                                          }
+                                          setState(() {
+                                            loading = true;
+                                          });
+                                          final result =
+                                              await _controller.register(
+                                                  _formKey.currentState!.value);
+
+                                          if (result) {
+                                            Fluttertoast.showToast(
+                                              msg:
+                                                  "Registro confirmado! em breve você vai estar recebendo um e-mail de confirmação com o ticket ${Emojis.smilingFaceWithSmilingEyes}",
+                                              toastLength: Toast.LENGTH_LONG,
+                                              gravity: ToastGravity.TOP,
+                                              timeInSecForIosWeb: 5,
+                                              backgroundColor:
+                                                  MeetupColors.blue,
+                                              textColor: MeetupColors.white,
+                                              fontSize: 16.0,
+                                            );
+                                            _formKey.currentState!.reset();
+                                          } else {
+                                            Fluttertoast.showToast(
+                                              msg:
+                                                  "Ocorreu um erro ao se registrar no evento ${Emojis.sadButRelievedFace}",
+                                              toastLength: Toast.LENGTH_LONG,
+                                              gravity: ToastGravity.TOP,
+                                              timeInSecForIosWeb: 5,
+                                              backgroundColor: Colors.redAccent,
+                                              textColor: MeetupColors.white,
+                                              fontSize: 16.0,
+                                            );
+                                          }
+                                          setState(() {
+                                            loading = false;
+                                          });
+                                        },
                                 ),
                               ),
                             ],

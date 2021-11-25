@@ -35,9 +35,9 @@ class BlurCircle extends StatelessWidget {
         width: 660,
         height: 660,
         margin: EdgeInsets.only(
-          left: side == BlurCircleSide.left ? 450 : 0,
+          left: side == BlurCircleSide.left ? 1200 : 0,
           top: positionY ?? 0,
-          right: side == BlurCircleSide.right ? 450 : 0,
+          right: side == BlurCircleSide.right ? 1200 : 0,
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(MeetupRadius.circular),

@@ -37,28 +37,28 @@ class HeaderWidget extends StatelessWidget {
                 MeetupTextButton(
                     label: 'Nossa comunidade',
                     onPressed: () {
-                      scrollToElement(1);
+                      scrollToElement(5);
                     }),
                 MeetupTextButton(
                     label: 'O Evento',
                     onPressed: () {
-                      scrollToElement(2);
+                      scrollToElement(7);
                     }),
                 MeetupTextButton(
                     label: 'Palestrantes',
                     onPressed: () {
-                      scrollToElement(3);
+                      scrollToElement(8);
                     }),
                 MeetupTextButton(
                     label: 'Patrocinadores',
                     onPressed: () {
-                      scrollToElement(4);
+                      scrollToElement(10);
                     }),
                 const SizedBox(width: MeetupSpacing.small),
                 MeetupPrimaryButton(
                     label: 'Faça sua inscrição',
                     onPressed: () {
-                      scrollToElement(5);
+                      scrollToElement(9);
                     }),
               ],
             ),
