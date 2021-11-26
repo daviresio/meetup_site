@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meetup_site/core/model/helper/meetup_scroll_behavior.dart';
 import 'package:meetup_site/helpers/meetup_spacing.dart';
 
 class EventTopicsWidget extends StatelessWidget {
@@ -39,8 +40,7 @@ class EventTopicsWidget extends StatelessWidget {
             height: 190,
             child: Center(
               child: ScrollConfiguration(
-                behavior:
-                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                behavior: MeetupScrollBehavior().copyWith(scrollbars: false),
                 child: CustomScrollView(
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,

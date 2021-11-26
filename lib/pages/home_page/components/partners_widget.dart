@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:meetup_site/components/meetup_primary_button.dart';
 import 'package:meetup_site/components/meetup_radius.dart';
+import 'package:meetup_site/core/model/helper/meetup_scroll_behavior.dart';
 import 'package:meetup_site/helpers/meetup_colors.dart';
 import 'package:meetup_site/helpers/meetup_spacing.dart';
 import 'package:meetup_site/pages/home_page/home_controller.dart';
@@ -176,20 +177,21 @@ class _PartnersWidgetState extends State<PartnersWidget> {
                 child: SizedBox(
                   height: 280,
                   child: ScrollConfiguration(
-                    behavior: ScrollConfiguration.of(context)
-                        .copyWith(scrollbars: false),
-                    child: ListView(
-                      shrinkWrap: true,
+                    behavior:
+                        MeetupScrollBehavior().copyWith(scrollbars: false),
+                    child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      children: [
-                        const SizedBox(width: MeetupSpacing.big1),
-                        _card('assets/images/partner_3.png', width: 200),
-                        const SizedBox(width: MeetupSpacing.big1),
-                        _card('assets/images/partner_2.png'),
-                        const SizedBox(width: MeetupSpacing.big1),
-                        _card('assets/images/partner_1.png'),
-                        const SizedBox(width: MeetupSpacing.big1),
-                      ],
+                      child: Row(
+                        children: [
+                          const SizedBox(width: MeetupSpacing.big1),
+                          _card('assets/images/partner_3.png', width: 200),
+                          const SizedBox(width: MeetupSpacing.big1),
+                          _card('assets/images/partner_2.png'),
+                          const SizedBox(width: MeetupSpacing.big1),
+                          _card('assets/images/partner_1.png'),
+                          const SizedBox(width: MeetupSpacing.big1),
+                        ],
+                      ),
                     ),
                   ),
                 ),
