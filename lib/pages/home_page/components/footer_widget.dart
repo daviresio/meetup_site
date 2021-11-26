@@ -29,19 +29,26 @@ class FooterWidget extends StatelessWidget {
             child: ResponsiveVisibility(
                 visible: true,
                 hiddenWhen: [Condition.smallerThan(name: DESKTOP)],
-                child: Image.asset('assets/images/logo.png')),
+                child: Image.asset('assets/images/logo.png', width: 64)),
           ),
           ResponsiveRowColumnItem(
             rowFlex: 1,
             rowOrder: 2,
             columnOrder: 2,
-            child: ClickWidget(
-              onTap: () {
-                launch('https://behance.net/joaotrld');
-              },
-              child: Text(
-                  'Designed with ${Emojis.redHeart} by | behance.net/joaotrld',
-                  style: Theme.of(context).textTheme.overline),
+            child: Column(
+              children: [
+                ClickWidget(
+                  onTap: () {
+                    launch('https://behance.net/joaotrld');
+                  },
+                  child: Text(
+                      'Designed with ${Emojis.redHeart} by | behance.net/joaotrld',
+                      style: Theme.of(context).textTheme.overline),
+                ),
+                const SizedBox(height: MeetupSpacing.tiny),
+                Text('Builded using ${Emojis.flexedBiceps} with Flutter Web',
+                    style: Theme.of(context).textTheme.overline)
+              ],
             ),
           ),
           ResponsiveRowColumnItem(

@@ -20,7 +20,7 @@ class HeaderWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset('assets/images/logo.png'),
+          Image.asset('assets/images/logo.png', width: 40),
           // ResponsiveVisibility(
           //   visible: false,
           //   visibleWhen: [Condition.smallerThan(name: TABLET)],
