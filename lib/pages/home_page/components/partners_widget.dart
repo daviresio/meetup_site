@@ -184,11 +184,11 @@ class _PartnersWidgetState extends State<PartnersWidget> {
                       child: Row(
                         children: [
                           const SizedBox(width: MeetupSpacing.big1),
-                          _card('assets/images/partner_3.png', width: 200),
+                          _card('partner_3.png', width: 200),
                           const SizedBox(width: MeetupSpacing.big1),
-                          _card('assets/images/partner_2.png'),
+                          _card('partner_2.png'),
                           const SizedBox(width: MeetupSpacing.big1),
-                          _card('assets/images/partner_1.png'),
+                          _card('partner_1.png'),
                           const SizedBox(width: MeetupSpacing.big1),
                         ],
                       ),
@@ -203,7 +203,7 @@ class _PartnersWidgetState extends State<PartnersWidget> {
     );
   }
 
-  Widget _card(String imagePath, {double width = 165}) {
+  Widget _card(String imageName, {double width = 165}) {
     return Container(
       width: 280,
       height: 264,
@@ -219,8 +219,8 @@ class _PartnersWidgetState extends State<PartnersWidget> {
         ],
       ),
       child: Center(
-        child: Image.asset(
-          imagePath,
+        child: Image.network(
+          'https://flutter-meetup.s3.sa-east-1.amazonaws.com/$imageName',
           width: width,
           height: 165,
           fit: BoxFit.contain,
