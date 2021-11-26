@@ -13,8 +13,8 @@ import 'package:screenshot/screenshot.dart';
 class HomeController {
   ScreenshotController screenshotController = ScreenshotController();
 
-  // final _baseUrl = 'https://daviresio-meetup-api-2-qdeql.ondigitalocean.app';
-  final _baseUrl = 'http://localhost:8080';
+  final _baseUrl = 'https://daviresio-meetup-api-2-qdeql.ondigitalocean.app';
+  // final _baseUrl = 'http://localhost:8080';
 
   Future<bool> register(
       Map<String, dynamic> payload, BuildContext context) async {
@@ -22,7 +22,7 @@ class HomeController {
       final url = '$_baseUrl/api/v1/tickets';
       final response = await Dio().post(url,
           data: json.encode({
-            'event_id': 'e57995d4-3844-4c02-898b-23a05c9e37a3',
+            'event_id': 'c59b793c-dff2-4a75-ad3e-72a9cf9eef2d',
             'event_type': payload['event_type'],
             'guest': {
               'name': payload['name'],
@@ -37,6 +37,7 @@ class HomeController {
         context: context,
         ticketId: response.data['id'],
         name: payload['name'],
+        ticketNumber: response.data['ticket_number'],
       );
 
       return response.statusCode! < 300;
@@ -68,10 +69,11 @@ class HomeController {
     required BuildContext context,
     required String ticketId,
     required String name,
+    required int ticketNumber,
   }) async {
     try {
-      final ticketImage = await screenshotController
-          .captureFromWidget(widgetToFile(context, name));
+      final ticketImage = await screenshotController.captureFromWidget(
+          widgetToFile(context, name, ticketNumber.toString()));
 
       final response = await Dio().post(
         '$_baseUrl/api/v1/tickets/images',
@@ -92,7 +94,8 @@ class HomeController {
   }
 }
 
-Widget widgetToFile(BuildContext context, String name) => Center(
+Widget widgetToFile(BuildContext context, String name, String ticketNumber) =>
+    Center(
       child: Container(
         width: 800,
         height: 430,
@@ -110,157 +113,200 @@ Widget widgetToFile(BuildContext context, String name) => Center(
             ],
           ),
         ),
-        child: Container(
-          width: 788,
-          height: 418,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
-            color: MeetupColors.black,
-          ),
-          child: Stack(
-            children: [
-              Positioned(
-                top: 70,
-                right: -180,
-                child: Transform(
-                  transform: Matrix4.rotationZ(math.pi / 2),
-                  child: Text(
-                    'N° 014747',
-                    style: Theme.of(context).textTheme.headline1,
+        child: ClipPath(
+          child: Container(
+            width: 788,
+            height: 418,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              color: MeetupColors.black,
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  top: 70,
+                  right: -180,
+                  child: Transform(
+                    transform: Matrix4.rotationZ(math.pi / 2),
+                    child: Text(
+                      'N° 0$ticketNumber',
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
                   ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: MeetupSpacing.big3,
-                      vertical: MeetupSpacing.big3,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(
-                                bottom: MeetupSpacing.small,
-                              ),
-                              child: Text(
-                                'Ingresso Meetup Flutter',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle2!
-                                    .merge(TextStyle(
-                                        color: MeetupColors.white,
-                                        fontWeight: FontWeight.w700)),
-                              ),
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  MeetupIcons.single_user_1,
-                                  color: MeetupColors.white,
-                                  size: 30,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: MeetupSpacing.big3,
+                        vertical: MeetupSpacing.big3,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(
+                                  bottom: MeetupSpacing.small,
                                 ),
-                                const SizedBox(width: MeetupSpacing.small),
-                                Text(
-                                  name.toUpperCase(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline3!
-                                      .merge(
-                                          TextStyle(color: MeetupColors.white)),
-                                )
-                              ],
-                            ),
-                            const SizedBox(height: MeetupSpacing.big1),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  MeetupIcons.location,
-                                  color: MeetupColors.white,
-                                  size: 30,
-                                ),
-                                const SizedBox(width: MeetupSpacing.small),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'IGUATEMI EMPRESARIAL,',
+                                      'Ingresso Meetup Flutter',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline3!
+                                          .subtitle2!
                                           .merge(TextStyle(
-                                              color: MeetupColors.white)),
+                                              color: MeetupColors.white,
+                                              fontWeight: FontWeight.w700)),
                                     ),
+                                    const SizedBox(width: MeetupSpacing.huge1),
                                     Text(
-                                      'SALA 301 | BILD',
+                                      '13/12 - 19:00',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline3!
+                                          .subtitle2!
                                           .merge(TextStyle(
-                                              color: MeetupColors.white)),
+                                              color: MeetupColors.white,
+                                              fontWeight: FontWeight.w700)),
                                     ),
                                   ],
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Image.asset('assets/images/partner_3.png',
-                                    height: 40),
-                                const SizedBox(
-                                  width: MeetupSpacing.small,
                                 ),
-                                Image.asset('assets/images/partner_2.png',
-                                    height: 40),
-                              ],
-                            ),
-                            const SizedBox(height: MeetupSpacing.medium),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
-                                  'www.fluttermeetup.com.br',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle1!
-                                      .merge(TextStyle(
-                                          color: MeetupColors.white,
-                                          fontWeight: FontWeight.w700)),
+                              ),
+                              LimitedBox(
+                                maxWidth: 450,
+                                child: FittedBox(
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        MeetupIcons.single_user_1,
+                                        color: MeetupColors.white,
+                                        size: 30,
+                                      ),
+                                      const SizedBox(
+                                          width: MeetupSpacing.small),
+                                      Text(
+                                        name.toUpperCase(),
+                                        maxLines: 2,
+                                        softWrap: false,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline3!
+                                            .merge(TextStyle(
+                                                color: MeetupColors.white)),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
-                          ],
-                        )
-                      ],
+                              ),
+                              const SizedBox(height: MeetupSpacing.big1),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    MeetupIcons.location,
+                                    color: MeetupColors.white,
+                                    size: 30,
+                                  ),
+                                  const SizedBox(width: MeetupSpacing.small),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'IGUATEMI EMPRESARIAL,',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline3!
+                                            .merge(TextStyle(
+                                                color: MeetupColors.white)),
+                                      ),
+                                      Text(
+                                        'SALA 301 | BILD',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline3!
+                                            .merge(TextStyle(
+                                                color: MeetupColors.white)),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/partner_3.png',
+                                        height: 40,
+                                      ),
+                                      const SizedBox(
+                                        width: MeetupSpacing.small,
+                                      ),
+                                      Image.asset(
+                                        'assets/images/partner_2.png',
+                                        height: 40,
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: MeetupSpacing.medium),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        'www.fluttermeetup.com.br',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle1!
+                                            .merge(TextStyle(
+                                                color: MeetupColors.white,
+                                                fontWeight: FontWeight.w700)),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(width: MeetupSpacing.medium),
+                              Image.asset(
+                                'assets/images/partner_1.png',
+                                height: 80,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    width: 200,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      border: Border(
-                          left: BorderSide(
-                        color: MeetupColors.gray3.withOpacity(0.5),
-                        width: 4,
-                      )),
+                    Container(
+                      width: 200,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        border: Border(
+                            left: BorderSide(
+                          color: MeetupColors.gray3.withOpacity(0.5),
+                          width: 4,
+                        )),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
