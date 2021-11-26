@@ -217,7 +217,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                           });
                                           final result =
                                               await _controller.register(
-                                                  _formKey.currentState!.value);
+                                            _formKey.currentState!.value,
+                                            context,
+                                          );
 
                                           if (result) {
                                             Fluttertoast.showToast(

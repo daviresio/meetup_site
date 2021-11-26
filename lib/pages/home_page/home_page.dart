@@ -24,7 +24,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final ItemScrollController itemScrollController = ItemScrollController();
-  // final ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
 
   final _bannerKey = GlobalKey();
   final _ourComunityKey = GlobalKey();
@@ -49,18 +48,16 @@ class _HomePageState extends State<HomePage> {
       color: MeetupColors.black,
       child: Stack(
         children: [
-          ...[
-            BlurCircle(
-              positionY: 50,
-              side: BlurCircleSide.right,
-              color: BlurCircleColor.purple,
-            ),
-            BlurCircle(
-              positionY: 350,
-              side: BlurCircleSide.left,
-              color: BlurCircleColor.blue,
-            ),
-          ],
+          BlurCircle(
+            positionY: 50,
+            side: BlurCircleSide.right,
+            color: BlurCircleColor.purple,
+          ),
+          BlurCircle(
+            positionY: 350,
+            side: BlurCircleSide.left,
+            color: BlurCircleColor.blue,
+          ),
           ScrollablePositionedList.builder(
             itemCount: _content.length,
             itemBuilder: (context, index) => Center(
