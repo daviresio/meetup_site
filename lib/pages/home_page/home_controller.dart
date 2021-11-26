@@ -22,7 +22,7 @@ class HomeController {
       final url = '$_baseUrl/api/v1/tickets';
       final response = await Dio().post(url,
           data: json.encode({
-            'event_id': 'f0781dbb-4c86-4007-8a26-00a45b5340cb',
+            'event_id': 'e57995d4-3844-4c02-898b-23a05c9e37a3',
             'event_type': payload['event_type'],
             'guest': {
               'name': payload['name'],
@@ -74,7 +74,7 @@ class HomeController {
           .captureFromWidget(widgetToFile(context, name));
 
       final response = await Dio().post(
-        '$_baseUrl/api/v1/images',
+        '$_baseUrl/api/v1/tickets/images',
         options: Options(headers: {"Content-Type": "multipart/form-data"}),
         data: FormData.fromMap({
           'ticket_id': ticketId,

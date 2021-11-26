@@ -233,7 +233,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                               textColor: MeetupColors.white,
                                               fontSize: 16.0,
                                             );
-                                            _formKey.currentState!.reset();
+                                            // _formKey.currentState!.reset();
                                           } else {
                                             Fluttertoast.showToast(
                                               msg:
