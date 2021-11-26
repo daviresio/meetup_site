@@ -224,7 +224,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                           if (result) {
                                             Fluttertoast.showToast(
                                               msg:
-                                                  "Registro confirmado! em breve você vai estar recebendo um e-mail de confirmação com o ticket ${Emojis.smilingFaceWithSmilingEyes}",
+                                                  "Registro confirmado! em breve você receberá um e-mail de confirmação com o ticket ${Emojis.smilingFaceWithSmilingEyes}",
                                               toastLength: Toast.LENGTH_LONG,
                                               gravity: ToastGravity.TOP,
                                               timeInSecForIosWeb: 5,

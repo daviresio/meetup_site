@@ -25,51 +25,48 @@ class _PartnersWidgetState extends State<PartnersWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: MeetupSpacing.big1,
-        right: MeetupSpacing.big1,
-      ),
-      child: Stack(
-        children: [
-          Positioned(
-            bottom: 50,
-            left: MediaQuery.of(context).size.width / 2 - 150,
-            child: Container(
-              width: 425,
-              height: 425,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(MeetupRadius.circular),
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: [0, 0.4, 0.6],
-                  colors: [
-                    MeetupColors.blue.withOpacity(0.6),
-                    MeetupColors.purple3.withOpacity(0.1),
-                    MeetupColors.purple3.withOpacity(0),
-                  ],
-                ),
+    return Stack(
+      children: [
+        Positioned(
+          bottom: 50,
+          left: MediaQuery.of(context).size.width / 2 - 150,
+          child: Container(
+            width: 425,
+            height: 425,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(MeetupRadius.circular),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: [0, 0.4, 0.6],
+                colors: [
+                  MeetupColors.blue.withOpacity(0.6),
+                  MeetupColors.purple3.withOpacity(0.1),
+                  MeetupColors.purple3.withOpacity(0),
+                ],
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(
-              top: MeetupSpacing.huge3,
-              bottom: MeetupSpacing.big2,
-            ),
-            child: ResponsiveRowColumn(
-              rowSpacing: MeetupSpacing.large,
-              columnSpacing: MeetupSpacing.big1,
-              rowMainAxisAlignment: MainAxisAlignment.spaceBetween,
-              layout: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
-                  ? ResponsiveRowColumnType.COLUMN
-                  : ResponsiveRowColumnType.ROW,
-              children: [
-                ResponsiveRowColumnItem(
-                  rowFlex: 1,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(maxWidth: 800),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(
+            top: MeetupSpacing.huge3,
+            bottom: MeetupSpacing.big2,
+          ),
+          child: ResponsiveRowColumn(
+            rowSpacing: MeetupSpacing.large,
+            columnSpacing: MeetupSpacing.big1,
+            rowMainAxisAlignment: MainAxisAlignment.spaceBetween,
+            layout: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                ? ResponsiveRowColumnType.COLUMN
+                : ResponsiveRowColumnType.ROW,
+            children: [
+              ResponsiveRowColumnItem(
+                rowFlex: 1,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 800),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: MeetupSpacing.big1),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
@@ -94,11 +91,9 @@ class _PartnersWidgetState extends State<PartnersWidget> {
                         ResponsiveVisibility(
                             visible: false,
                             visibleWhen: [Condition.smallerThan(name: DESKTOP)],
-                            child: Center(
-                              child: Text(
-                                'Nossos patrocinadores',
-                                style: Theme.of(context).textTheme.headline1,
-                              ),
+                            child: Text(
+                              'Nossos patrocinadores',
+                              style: Theme.of(context).textTheme.headline1,
                             )),
                         const SizedBox(height: MeetupSpacing.large),
                         // Text(
@@ -175,23 +170,34 @@ class _PartnersWidgetState extends State<PartnersWidget> {
                     ),
                   ),
                 ),
-                ResponsiveRowColumnItem(
-                  rowFlex: 1,
-                  child: FittedBox(
-                    child: Row(
+              ),
+              ResponsiveRowColumnItem(
+                rowFlex: 1,
+                child: SizedBox(
+                  height: 280,
+                  child: ScrollConfiguration(
+                    behavior: ScrollConfiguration.of(context)
+                        .copyWith(scrollbars: false),
+                    child: ListView(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
                       children: [
-                        _card('assets/images/partner_1.png'),
+                        const SizedBox(width: MeetupSpacing.big1),
+                        _card('assets/images/partner_3.png'),
                         const SizedBox(width: MeetupSpacing.big1),
                         _card('assets/images/partner_2.png'),
+                        const SizedBox(width: MeetupSpacing.big1),
+                        _card('assets/images/partner_1.png'),
+                        const SizedBox(width: MeetupSpacing.big1),
                       ],
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -200,7 +206,7 @@ class _PartnersWidgetState extends State<PartnersWidget> {
       width: 280,
       height: 264,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.black.withOpacity(0.1),
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
