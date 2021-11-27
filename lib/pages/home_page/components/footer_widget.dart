@@ -46,7 +46,7 @@ class FooterWidget extends StatelessWidget {
                       style: Theme.of(context).textTheme.overline),
                 ),
                 const SizedBox(height: MeetupSpacing.tiny),
-                Text('Builded using ${Emojis.flexedBiceps} with Flutter Web',
+                Text('Builded with Flutter Web and ${Emojis.hotBeverage}',
                     style: Theme.of(context).textTheme.overline)
               ],
             ),

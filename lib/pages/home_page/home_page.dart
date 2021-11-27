@@ -12,6 +12,7 @@ import 'package:meetup_site/pages/home_page/components/our_community_widget.dart
 import 'package:meetup_site/pages/home_page/components/partners_widget.dart';
 import 'package:meetup_site/pages/home_page/components/register_widget.dart';
 import 'package:meetup_site/pages/home_page/components/speakers_widget.dart';
+import 'package:meetup_site/pages/home_page/home_controller.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -44,6 +45,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // return widgetToFile(
+    //   context: context,
+    //   name: 'Davi Resio',
+    //   ticketNumber: '123456',
+    //   isPresential: false,
+    // );
+
     return Container(
       color: MeetupColors.black,
       child: Stack(
