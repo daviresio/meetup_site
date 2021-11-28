@@ -17,7 +17,10 @@ class HomeController {
   // final _baseUrl = 'http://localhost:8080';
 
   Future<bool> register(
-      Map<String, dynamic> payload, BuildContext context) async {
+    Map<String, dynamic> payload,
+    BuildContext context,
+    Widget precachedQrCode,
+  ) async {
     try {
       final url = '$_baseUrl/api/v1/tickets';
       final response = await Dio().post(url,
@@ -39,6 +42,7 @@ class HomeController {
         name: payload['name'],
         ticketNumber: response.data['ticket_number'],
         isPresential: payload['event_type'] == 'PRESENTIAL',
+        precachedQrCode: precachedQrCode,
       );
 
       return response.statusCode! < 300;
@@ -72,6 +76,7 @@ class HomeController {
     required String name,
     required int ticketNumber,
     required bool isPresential,
+    required Widget precachedQrCode,
   }) async {
     try {
       final ticketImage = await screenshotController.captureFromWidget(
@@ -80,6 +85,7 @@ class HomeController {
           name: name,
           ticketNumber: ticketNumber.toString(),
           isPresential: isPresential,
+          precachedQrCode: precachedQrCode,
         ),
       );
 
@@ -107,6 +113,7 @@ Widget widgetToFile({
   required String name,
   required String ticketNumber,
   required bool isPresential,
+  required Widget precachedQrCode,
 }) {
   return Center(
     child: FittedBox(
@@ -251,9 +258,9 @@ Widget widgetToFile({
                                   Icon(
                                     MeetupIcons.youtube,
                                     color: MeetupColors.white,
-                                    size: 30,
+                                    size: 22,
                                   ),
-                                  const SizedBox(width: MeetupSpacing.small),
+                                  const SizedBox(width: MeetupSpacing.medium),
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -278,10 +285,7 @@ Widget widgetToFile({
                                     ],
                                   ),
                                   const SizedBox(width: MeetupSpacing.medium),
-                                  Image.asset(
-                                    'assets/images/qr_code.png',
-                                    width: 130,
-                                  )
+                                  precachedQrCode,
                                 ],
                               ),
                             ],

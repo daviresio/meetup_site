@@ -30,6 +30,14 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   final phoneInputFormatter = MaskTextInputFormatter(
       mask: '(##) #####-####', filter: {"#": RegExp(r'[0-9]')});
 
+  final precachedQrCode = Image.asset('assets/images/qr_code.png', width: 130);
+
+  @override
+  void didChangeDependencies() {
+    precacheImage(precachedQrCode.image, context);
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -219,6 +227,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                               await _controller.register(
                                             _formKey.currentState!.value,
                                             context,
+                                            precachedQrCode,
                                           );
 
                                           if (result) {
