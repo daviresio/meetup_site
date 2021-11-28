@@ -169,8 +169,10 @@ Widget widgetToFile({
                                     .textTheme
                                     .subtitle2!
                                     .merge(TextStyle(
-                                        color: MeetupColors.white,
-                                        fontWeight: FontWeight.w700)),
+                                      color: MeetupColors.white,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 18,
+                                    )),
                               ),
                               const SizedBox(width: MeetupSpacing.huge1),
                               Text(
@@ -179,8 +181,10 @@ Widget widgetToFile({
                                     .textTheme
                                     .subtitle2!
                                     .merge(TextStyle(
-                                        color: MeetupColors.white,
-                                        fontWeight: FontWeight.w700)),
+                                      color: MeetupColors.white,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 18,
+                                    )),
                               ),
                             ],
                           ),
