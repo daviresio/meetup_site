@@ -105,7 +105,8 @@ class SpeakersWidget extends StatelessWidget {
                           name: 'Rully Alves',
                           jobPosition: 'Software Developer @ BTG',
                           title: 'A nova era do desenvolvimento mobile',
-                          description: '',
+                          description:
+                              'Rully Alves vem direto de Hortolândia para Ribeirão Preto pra palestrar sobre a nova era do desenvolviment mobile.',
                         ),
                         const SizedBox(width: MeetupSpacing.big1),
                         AnimatedCard(
@@ -114,7 +115,8 @@ class SpeakersWidget extends StatelessWidget {
                           jobPosition: 'Software Developer @ BTG',
                           title:
                               'Micro front-ends: a evolução das arquiteturas para aplicações modernas',
-                          description: '',
+                          description:
+                              'Gabriela Pereira vem direto de São Carlos para Ribeirão Preto pra palestrar junto com o Paulo Victor sobre esse tópico quentissimo e com um caso de uso em flutter!',
                         ),
                         const SizedBox(width: MeetupSpacing.big1),
                         AnimatedCard(
@@ -123,7 +125,8 @@ class SpeakersWidget extends StatelessWidget {
                           jobPosition: 'Developer Instructor @ Rocketseat',
                           title:
                               'Micro front-ends: a evolução das arquiteturas para aplicações modernas',
-                          description: '',
+                          description:
+                              'Paulo Victor vem direto de Manaus para Ribeirão Preto pra palestrar junto com o Gabriela Pereira sobre esse tópico quentissimo e com um caso de uso em flutter!',
                         ),
                       ],
                     ),
