@@ -82,17 +82,13 @@ class SpeakersWidget extends StatelessWidget {
                             child: Center(
                               child: Text(
                                 'Nossos palestrantes',
+                                textAlign: TextAlign.center,
                                 style: Theme.of(context).textTheme.headline1,
                               ),
                             )),
                         const SizedBox(height: MeetupSpacing.large),
                         Text(
-                          'Sóstenes Gomes é um engenheiro de software com mais de 10 anos de experiência profissional. Já trabalhou em grandes projetos de software, envolvendo milhões de usuários. Nestes projetos eu atuei em várias partes, como levantamento de requisitos, prototipação, validação, arquitetura, desenvolvimento, testes, análise de dados.',
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        const SizedBox(height: MeetupSpacing.medium),
-                        Text(
-                          'Davi Resio é um engenheiro de software que já trabalhou em diversos projetos com diferentes stacks ao longo da carreira. Sempre procura entregar o melhor em tudo que faz, e por isso gosta de estar sempre se atualizando para estar um passo a frente.',
+                          'Vindos de Manaus, Hortolândia e São Carlos Direto para Ribeirão, trazendo as ultimas novidades do mundo da tecnologia para o maior polo de inovação do país.',
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ],
@@ -100,26 +96,34 @@ class SpeakersWidget extends StatelessWidget {
                   ),
                 ),
                 ResponsiveRowColumnItem(
-                  rowFlex: 1,
+                  rowFlex: 2,
                   child: FittedBox(
                     child: Row(
                       children: [
                         AnimatedCard(
-                          imagePath: 'assets/images/sostenes.jpeg',
-                          name: 'Sostenes Gomes',
-                          jobPosition: 'Head Mobile',
-                          title: 'Arquitetando apps flutter',
-                          description:
-                              'Nessa palestra vou falar sobre os principais fatores que devemos levar em consideração para a arquitetura de um app flutter, e apresentar opções de arquitetura para o seu app.',
+                          imagePath: 'assets/images/speaker_1.jpeg',
+                          name: 'Rully Alves',
+                          jobPosition: 'Software Developer @ BTG',
+                          title: 'A nova era do desenvolvimento mobile',
+                          description: '',
                         ),
                         const SizedBox(width: MeetupSpacing.big1),
                         AnimatedCard(
-                          imagePath: 'assets/images/davi.png',
-                          name: 'Davi Resio',
-                          jobPosition: 'Flutter developer',
-                          title: 'Interfaces fora da curva com CustomPainter',
-                          description:
-                              'Nessa palestra vou mostrar cenários em que na Dryve fizemos o uso de CustomPaint (canvas) para criar interfaces únicas, em cenários que não seria possível, ou seria muito difícil alcançar estilizando com widgets tradicionais.',
+                          imagePath: 'assets/images/speaker_2.jpeg',
+                          name: 'Gabriela Pereira',
+                          jobPosition: 'Software Developer @ BTG',
+                          title:
+                              'Micro front-ends: a evolução das arquiteturas para aplicações modernas',
+                          description: '',
+                        ),
+                        const SizedBox(width: MeetupSpacing.big1),
+                        AnimatedCard(
+                          imagePath: 'assets/images/speaker_3.jpeg',
+                          name: 'Paulo Victor',
+                          jobPosition: 'Developer Instructor @ Rocketseat',
+                          title:
+                              'Micro front-ends: a evolução das arquiteturas para aplicações modernas',
+                          description: '',
                         ),
                       ],
                     ),

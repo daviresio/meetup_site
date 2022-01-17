@@ -2,9 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:meetup_site/helpers/meetup_colors.dart';
 import 'package:meetup_site/helpers/meetup_icons.dart';
 import 'package:meetup_site/helpers/meetup_spacing.dart';
@@ -305,14 +303,14 @@ Widget widgetToFile({
                             Row(
                               children: [
                                 Image.asset(
-                                  'assets/images/partner_3.png',
+                                  'assets/images/partners_1.png',
                                   height: 40,
                                 ),
                                 const SizedBox(
                                   width: MeetupSpacing.small,
                                 ),
                                 Image.asset(
-                                  'assets/images/partner_2.png',
+                                  'assets/images/partners_2.png',
                                   height: 40,
                                 ),
                               ],
@@ -336,7 +334,7 @@ Widget widgetToFile({
                         ),
                         const SizedBox(width: MeetupSpacing.medium),
                         Image.asset(
-                          'assets/images/partner_1.png',
+                          'assets/images/partners_1.png',
                           height: 80,
                         ),
                       ],

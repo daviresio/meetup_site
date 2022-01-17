@@ -63,6 +63,19 @@ class HeaderWidget extends StatelessWidget {
               ],
             ),
           ),
+          ResponsiveVisibility(
+            visible: false,
+            visibleWhen: [Condition.smallerThan(name: TABLET)],
+            child: Row(
+              children: [
+                MeetupPrimaryButton(
+                    label: 'Faça sua inscrição',
+                    onPressed: () {
+                      scrollToElement(9);
+                    }),
+              ],
+            ),
+          ),
         ],
       ),
     );

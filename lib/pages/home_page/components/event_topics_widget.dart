@@ -37,7 +37,7 @@ class EventTopicsWidget extends StatelessWidget {
           ),
           const SizedBox(height: MeetupSpacing.big1),
           SizedBox(
-            height: 190,
+            height: 220,
             child: Center(
               child: ScrollConfiguration(
                 behavior: MeetupScrollBehavior().copyWith(scrollbars: false),
@@ -49,17 +49,17 @@ class EventTopicsWidget extends StatelessWidget {
                       delegate: SliverChildListDelegate([
                         SizedBox(width: MeetupSpacing.big1),
                         _eventDescriptionItem(
-                          'Evento no espaço de inovação Bild Labs',
+                          'Evento no Instituto SEB - A Fábrica',
                           context,
                         ),
                         SizedBox(width: MeetupSpacing.big1),
                         _eventDescriptionItem(
-                          'Arquitetando apps flutter',
+                          'A nova era do desenvolvimento mobile',
                           context,
                         ),
                         SizedBox(width: MeetupSpacing.big1),
                         _eventDescriptionItem(
-                          'UI\'s fora da curva com CustomPainter',
+                          'Micro front-ends: a evolução das arquiteturas para aplicações modernas',
                           context,
                         ),
                         SizedBox(width: MeetupSpacing.big1),
