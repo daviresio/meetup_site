@@ -121,15 +121,7 @@ class _HomePageState extends State<HomePage> {
             }
           },
         ),
-        SizedBox(
-          height: ResponsiveValue(
-            context,
-            defaultValue: MeetupSpacing.huge1,
-            valueWhen: const [
-              Condition.smallerThan(name: DESKTOP, value: MeetupSpacing.large),
-            ],
-          ).value,
-        ),
+        SizedBox(height: MeetupSpacing.huge3),
         const EventTopicsWidget(),
         SpeakersWidget(key: _speakersKey),
         const RegisterWidget(),
