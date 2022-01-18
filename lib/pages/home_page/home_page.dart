@@ -44,7 +44,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   // final precachedQrCode = Image.asset('assets/images/qr_code.png', width: 130);
-  //
+  // final precachedQrCodeWhatsapp =
+  //     Image.asset('assets/images/qr_code_whatsapp.png', width: 130);
+
   // @override
   // void didChangeDependencies() {
   //   precacheImage(precachedQrCode.image, context);
@@ -57,8 +59,9 @@ class _HomePageState extends State<HomePage> {
     //   context: context,
     //   name: 'Davi Resio',
     //   ticketNumber: '123456',
-    //   isPresential: false,
+    //   isPresential: true,
     //   precachedQrCode: precachedQrCode,
+    //   precachedQrCodeWhatsapp: precachedQrCodeWhatsapp,
     // );
 
     return Container(

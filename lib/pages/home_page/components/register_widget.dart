@@ -31,6 +31,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
       mask: '(##) #####-####', filter: {"#": RegExp(r'[0-9]')});
 
   final precachedQrCode = Image.asset('assets/images/qr_code.png', width: 130);
+  final precachedQrCodeWhatsapp =
+      Image.asset('assets/images/qr_code_whatsapp.png', width: 130);
 
   @override
   void didChangeDependencies() {
@@ -228,6 +230,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                             _formKey.currentState!.value,
                                             context,
                                             precachedQrCode,
+                                            precachedQrCodeWhatsapp,
                                           );
 
                                           if (result) {

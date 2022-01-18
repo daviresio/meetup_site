@@ -8,22 +8,25 @@ import 'package:meetup_site/helpers/meetup_icons.dart';
 import 'package:meetup_site/helpers/meetup_spacing.dart';
 import 'package:screenshot/screenshot.dart';
 
+const eventId = 'c4e2205d-14df-4361-b6bc-4c54f6236714';
+
 class HomeController {
   ScreenshotController screenshotController = ScreenshotController();
 
-  final _baseUrl = 'https://daviresio-meetup-api-2-qdeql.ondigitalocean.app';
-  // final _baseUrl = 'http://localhost:8080';
+  // final _baseUrl = 'https://daviresio-meetup-api-2-qdeql.ondigitalocean.app';
+  final _baseUrl = 'http://localhost:8080';
 
   Future<bool> register(
     Map<String, dynamic> payload,
     BuildContext context,
     Widget precachedQrCode,
+    Widget precachedQrCodeWhatsapp,
   ) async {
     try {
       final url = '$_baseUrl/api/v1/tickets';
       final response = await Dio().post(url,
           data: json.encode({
-            'event_id': 'c59b793c-dff2-4a75-ad3e-72a9cf9eef2d',
+            'event_id': eventId,
             'event_type': payload['event_type'],
             'guest': {
               'name': payload['name'],
@@ -41,6 +44,7 @@ class HomeController {
         ticketNumber: response.data['ticket_number'],
         isPresential: payload['event_type'] == 'PRESENTIAL',
         precachedQrCode: precachedQrCode,
+        precachedQrCodeWhatsapp: precachedQrCodeWhatsapp,
       );
 
       return response.statusCode! < 300;
@@ -75,6 +79,7 @@ class HomeController {
     required int ticketNumber,
     required bool isPresential,
     required Widget precachedQrCode,
+    required Widget precachedQrCodeWhatsapp,
   }) async {
     try {
       final ticketImage = await screenshotController.captureFromWidget(
@@ -84,6 +89,7 @@ class HomeController {
           ticketNumber: ticketNumber.toString(),
           isPresential: isPresential,
           precachedQrCode: precachedQrCode,
+          precachedQrCodeWhatsapp: precachedQrCodeWhatsapp,
         ),
       );
 
@@ -112,6 +118,7 @@ Widget widgetToFile({
   required String ticketNumber,
   required bool isPresential,
   required Widget precachedQrCode,
+  required Widget precachedQrCodeWhatsapp,
 }) {
   return Center(
     child: FittedBox(
@@ -174,7 +181,7 @@ Widget widgetToFile({
                               ),
                               const SizedBox(width: MeetupSpacing.huge1),
                               Text(
-                                '13/12 - 19:00',
+                                '10/02 - 19:00',
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle2!
@@ -231,7 +238,7 @@ Widget widgetToFile({
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'IGUATEMI EMPRESARIAL,',
+                                      'Instituto SEB - A Fábrica,',
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline3!
@@ -239,10 +246,18 @@ Widget widgetToFile({
                                               color: MeetupColors.white)),
                                     ),
                                     Text(
-                                      'SALA 301 | BILD',
+                                      'R. Mariana Junqueira, 33 - Centro,',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline3!
+                                          .bodyText1!
+                                          .merge(TextStyle(
+                                              color: MeetupColors.white)),
+                                    ),
+                                    Text(
+                                      'Ribeirão Preto - SP',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1!
                                           .merge(TextStyle(
                                               color: MeetupColors.white)),
                                     ),
@@ -332,13 +347,8 @@ Widget widgetToFile({
                             ),
                           ],
                         ),
-                        const SizedBox(width: MeetupSpacing.medium),
-                        Image.asset(
-                          'assets/images/partners_1.png',
-                          height: 80,
-                        ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
