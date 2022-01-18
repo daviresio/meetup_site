@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meetup_site/components/meetup_radius.dart';
 import 'package:meetup_site/helpers/meetup_colors.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 enum BlurCircleColor {
   purple,
@@ -30,10 +31,12 @@ class BlurCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final amount =
+        ResponsiveWrapper.of(context).isSmallerThan(TABLET) ? -600.0 : -450.0;
     return Positioned(
-      left: side == BlurCircleSide.left ? -450 : null,
+      left: side == BlurCircleSide.left ? amount : null,
       top: positionY,
-      right: side == BlurCircleSide.right ? -450 : null,
+      right: side == BlurCircleSide.right ? amount : null,
       child: IgnorePointer(
         ignoring: true,
         child: Container(

@@ -13,8 +13,8 @@ const eventId = 'c4e2205d-14df-4361-b6bc-4c54f6236714';
 class HomeController {
   ScreenshotController screenshotController = ScreenshotController();
 
-  // final _baseUrl = 'https://daviresio-meetup-api-2-qdeql.ondigitalocean.app';
-  final _baseUrl = 'http://localhost:8080';
+  final _baseUrl = 'https://daviresio-meetup-api-uouel.ondigitalocean.app';
+  // final _baseUrl = 'http://localhost:8080';
 
   Future<bool> register(
     Map<String, dynamic> payload,
