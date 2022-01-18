@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:meetup_site/components/click_widget.dart';
+import 'package:meetup_site/components/meetup_primary_button.dart';
 import 'package:meetup_site/helpers/meetup_spacing.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OurCommunityWidget extends StatefulWidget {
-  const OurCommunityWidget({Key? key}) : super(key: key);
+  final void Function(int index) scrollToElement;
+
+  const OurCommunityWidget({Key? key, required this.scrollToElement})
+      : super(key: key);
 
   @override
   _OurCommunityWidgetState createState() => _OurCommunityWidgetState();
@@ -85,20 +91,32 @@ class _OurCommunityWidgetState extends State<OurCommunityWidget>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Nossa comunidade',
+                      'O Evento',
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.headline1,
                     ),
                     const SizedBox(height: MeetupSpacing.large),
                     Text(
-                      'O meetup é formado pela comunidade e para a comunidade. Qualquer um é bem vindo para contribuir, seja você iniciante ou experiente, sempre tem uma forma de contribuir.',
+                      'Nosso meetup vai ser no dia 10/02 as 19:00 e para os que forem vir presencialmente vai ser no Instituto SEB - A Fábrica, que fica na Rua Mariana Junqueira, 33 - Centro, Ribeirão Preto/SP,',
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     const SizedBox(height: MeetupSpacing.medium),
-                    Text(
-                      'Com reuniões mensais, é o lugar ideal para estar por dentro do flutter, além de conhecer o trabalho dos devs flutter da região de Ribeirão Preto.',
-                      style: Theme.of(context).textTheme.bodyText1,
+                    ClickWidget(
+                      onTap: () {
+                        launch(
+                            'https://chat.whatsapp.com/H2HeqqCs1XwFtcFrehgL9m');
+                      },
+                      child: Text(
+                        'Aproveite para interagir com a comunidade e clique aqui para entrar no nosso grupo do whatsapp.',
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
                     ),
+                    const SizedBox(height: MeetupSpacing.medium),
+                    MeetupPrimaryButton(
+                        label: 'Faça sua inscrição',
+                        onPressed: () {
+                          widget.scrollToElement(9);
+                        })
                   ],
                 ),
               ),

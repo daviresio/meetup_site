@@ -110,7 +110,17 @@ class _HomePageState extends State<HomePage> {
         const SizedBox(height: MeetupSpacing.huge2),
         BannerWidget(key: _bannerKey),
         const SizedBox(height: MeetupSpacing.big3),
-        OurCommunityWidget(key: _ourComunityKey),
+        OurCommunityWidget(
+          key: _ourComunityKey,
+          scrollToElement: (index) async {
+            try {
+              await itemScrollController.scrollTo(
+                  index: index, duration: const Duration(milliseconds: 500));
+            } catch (e) {
+              print(e);
+            }
+          },
+        ),
         SizedBox(
           height: ResponsiveValue(
             context,

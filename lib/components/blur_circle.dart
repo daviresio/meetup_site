@@ -32,7 +32,7 @@ class BlurCircle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final amount =
-        ResponsiveWrapper.of(context).isSmallerThan(TABLET) ? -600.0 : -450.0;
+        ResponsiveWrapper.of(context).isSmallerThan(DESKTOP) ? -650.0 : -450.0;
     return Positioned(
       left: side == BlurCircleSide.left ? amount : null,
       top: positionY,

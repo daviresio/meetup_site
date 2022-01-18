@@ -35,12 +35,12 @@ class HeaderWidget extends StatelessWidget {
             child: Row(
               children: [
                 MeetupTextButton(
-                    label: 'Nossa comunidade',
+                    label: 'O Evento',
                     onPressed: () {
                       scrollToElement(5);
                     }),
                 MeetupTextButton(
-                    label: 'O Evento',
+                    label: 'Programação',
                     onPressed: () {
                       scrollToElement(7);
                     }),

@@ -49,12 +49,12 @@ class EventTopicsWidget extends StatelessWidget {
                       delegate: SliverChildListDelegate([
                         SizedBox(width: MeetupSpacing.big1),
                         _eventDescriptionItem(
-                          'Evento no Instituto SEB - A Fábrica',
+                          'Evento no Instituto SEB - A Fábrica com coffe break antes do início',
                           context,
                         ),
                         SizedBox(width: MeetupSpacing.big1),
                         _eventDescriptionItem(
-                          'A nova era do desenvolvimento mobile',
+                          'Palestra: A nova era do desenvolvimento mobile',
                           context,
                         ),
                         SizedBox(width: MeetupSpacing.big1),
@@ -64,7 +64,7 @@ class EventTopicsWidget extends StatelessWidget {
                         ),
                         SizedBox(width: MeetupSpacing.big1),
                         _eventDescriptionItem(
-                          'Aproveite para fazer bastante network',
+                          'Aproveite para fazer bastante network!',
                           context,
                         ),
                         SizedBox(width: MeetupSpacing.big1),
