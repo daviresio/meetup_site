@@ -181,7 +181,7 @@ Widget widgetToFile({
                               ),
                               const SizedBox(width: MeetupSpacing.huge1),
                               Text(
-                                '10/02 - 19:00',
+                                '08/03 - 19:00',
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle2!

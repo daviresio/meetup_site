@@ -69,7 +69,7 @@ class _BannerWidgetState extends State<BannerWidget>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('10/02 ÁS 19H',
+                  Text('08/03 ÁS 19H',
                       style: Theme.of(context).textTheme.subtitle1),
                   const SizedBox(height: MeetupSpacing.tiny),
                   Text('VENHA', style: Theme.of(context).textTheme.headline1),

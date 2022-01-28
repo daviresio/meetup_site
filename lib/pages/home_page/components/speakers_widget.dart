@@ -122,7 +122,7 @@ class SpeakersWidget extends StatelessWidget {
                         AnimatedCard(
                           imagePath: 'assets/images/speaker_3.jpeg',
                           name: 'Paulo Victor',
-                          jobPosition: 'Developer Instructor @ Rocketseat',
+                          jobPosition: 'Software Developer @ BTG',
                           title:
                               'Micro front-ends: a evolução das arquiteturas para aplicações modernas',
                           description:
