@@ -97,7 +97,7 @@ class _OurCommunityWidgetState extends State<OurCommunityWidget>
                     ),
                     const SizedBox(height: MeetupSpacing.large),
                     Text(
-                      'Nosso meetup vai ser no dia 10/02 as 19:00 e para os que forem vir presencialmente vai ser no Instituto SEB - A Fábrica, que fica na Rua Mariana Junqueira, 33 - Centro, Ribeirão Preto/SP,',
+                      'Nosso meetup vai ser no dia 08/03 as 19:00 e para os que forem vir presencialmente vai ser no Instituto SEB - A Fábrica, que fica na Rua Mariana Junqueira, 33 - Centro, Ribeirão Preto/SP,',
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     const SizedBox(height: MeetupSpacing.medium),
