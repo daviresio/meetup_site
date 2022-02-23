@@ -103,7 +103,7 @@ class SpeakersWidget extends StatelessWidget {
                         AnimatedCard(
                           imagePath: 'assets/images/speaker_1.jpeg',
                           name: 'Rully Alves',
-                          jobPosition: 'Software Developer @ BTG',
+                          jobPosition: 'Desenvolvedor Mobile',
                           title: 'A nova era do desenvolvimento mobile',
                           description:
                               'Rully Alves vem de Hortolândia para Ribeirão Preto pra palestrar sobre a nova era do desenvolviment mobile.',
