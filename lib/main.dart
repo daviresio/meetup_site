@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:meetup_site/helpers/meetup_colors.dart';
 import 'package:meetup_site/pages/home_page/home_page.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 void main() {
+  setPathUrlStrategy();
   runApp(MyApp());
 }
 
