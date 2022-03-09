@@ -78,18 +78,31 @@ class _HomePageState extends State<HomePage> {
             side: BlurCircleSide.left,
             color: BlurCircleColor.blue,
           ),
-          ScrollablePositionedList.builder(
-            itemCount: _content.length,
-            itemBuilder: (context, index) => Center(
-                child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 1280),
-              child: _content[index],
-            )),
-            itemScrollController: itemScrollController,
-            // itemPositionsListener: itemPositionsListener,
-            shrinkWrap: true,
-            physics: ClampingScrollPhysics(),
-          ),
+          Container(
+            width: double.maxFinite,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('EM BREVE', style: Theme.of(context).textTheme.headline1),
+                const SizedBox(height: 20),
+                Text('NOVA EDIÇÃO',
+                    style: Theme.of(context).textTheme.headline1),
+              ],
+            ),
+          )
+          // ScrollablePositionedList.builder(
+          //   itemCount: _content.length,
+          //   itemBuilder: (context, index) => Center(
+          //       child: ConstrainedBox(
+          //     constraints: BoxConstraints(maxWidth: 1280),
+          //     child: _content[index],
+          //   )),
+          //   itemScrollController: itemScrollController,
+          //   // itemPositionsListener: itemPositionsListener,
+          //   shrinkWrap: true,
+          //   physics: ClampingScrollPhysics(),
+          // ),
         ],
       ),
     );
