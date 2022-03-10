@@ -88,6 +88,17 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 20),
                 Text('NOVA EDIÇÃO',
                     style: Theme.of(context).textTheme.headline1),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: 400,
+                  child: Text(
+                    'Entre no nosso grupo do whatsapp e fique por dentro de tudo que rola na comunidade!',
+                    style: Theme.of(context).textTheme.bodyText1,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: 40),
+                Image.asset('assets/images/qr_code_whatsapp.png', width: 400),
               ],
             ),
           )
